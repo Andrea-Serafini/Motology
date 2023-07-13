@@ -1,0 +1,68 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{float}
+\usepackage{minted}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titling}
+\usepackage{titlesec}
+\usepackage{listings}
+
+% Language Definitions for SPARQL
+%\lstset{language=SQL,morekeywords={PREFIX,java,rdf,rdfs,url}}
+
+\lstset{
+    language=SQL,
+    morekeywords={PREFIX, java, rdf, rdfs, url},
+    basicstyle=\ttfamily,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{black},
+    keywordstyle=\color{blue},
+    %keywordstyle=\color[rgb]{0.5, 0.5, 0},
+    commentstyle=\color{gray},
+    alsoletter={?},
+    literate={?}{{\textcolor{red}{?}}}1,
+    moredelim=[s][\color{purple}]{?}{\ },
+    breaklines=true,
+}
+
+\setlength{\droptitle}{-15em}   % This is your set screw
+
+\input{structure}
+
+\title{
+    \Huge Motology\\
+    \Large Motorsports championship Ontology\\ 
+    \Large Relazione Web Semantico
+}
+
+\author{Serafini Andrea, Sanchi Piero}
+
+\usepackage{natbib}
+\bibliographystyle{unsrt}
+\usepackage{graphicx}
+
+\usepackage{tabularx}
+\usepackage[justification=centering]{caption}
+\usepackage{minted}
+\usemintedstyle{vs}
+\definecolor{bg}{rgb}{0.95,0.95,0.95}
+
+\titleformat{\chapter}[display]   
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}   
+\titlespacing*{\chapter}{0pt}{-20pt}{20pt}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\listoffigures
+
+\input{chapters/ch-1}
+\input{chapters/ch-2}
+\input{chapters/ch-3}
+\input{chapters/ch-4}
+
+\end{document}

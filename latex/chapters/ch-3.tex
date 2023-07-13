@@ -1,0 +1,195 @@
+\chapter{Query ed interrogazioni SPARQL}
+
+In questo capitolo illustriamo alcune query formulate su Motology utilizzando SPARQL, alcune delle quali derivanti da ricerce online legate all'ambito del motomondiale. Occorre precisare che le seguenti query funzionano correttamente solo sull'ontologia contenente anche le triple inferite dal reasoner oltre a quelle modellate in partenza.
+
+\section{Query 1: estrazione delle classifiche}
+
+Con la seguente query è possibile andare a visualizzare tutte le classifiche delle varie competizioni, ordinandole per prime per poi ordinare i vari piazzamenti. \\
+
+\begin{lstlisting}[captionpos=b, caption=Estrazione delle classifiche, label=lst:sparql1,
+   basicstyle=\ttfamily,frame=single]
+SELECT ?competizione ?pilota ?posizione
+
+WHERE {
+	?competizione rdf:type :Competizione .
+	?competizione :haInClassifica ?piazzamento .
+	?piazzamento :piazzamentoDi ?pilota .
+	?piazzamento :haPosizioneFinale ?posizione .
+}
+ORDER BY ?competizione ?posizione
+\end{lstlisting}
+
+\section{Query 2: classifica di una gara}
+
+Con la seguente query è possibile andare a visualizzare la classifica di una specifica gara, in questo caso \texttt{Gara\_1}, ordinata per posizione ottenuta e riportante anche il gap dal vincitore. \\
+
+\begin{lstlisting}[captionpos=b, caption=Classifica di una gara, label=lst:sparql2, basicstyle=\ttfamily,frame=single]
+SELECT ?posizione ?pilota (STR(?gap) AS ?Gap) 
+
+WHERE {
+	
+	?competizione owl:sameAs :Gara_1 .
+	?competizione :haInClassifica ?piazzamento .
+	?piazzamento :piazzamentoDi ?pilota .
+	?piazzamento :haPosizioneFinale ?posizione .
+	?piazzamento :haGap ?gap .
+}
+ORDER BY ?posizione
+\end{lstlisting}
+
+\newpage
+
+\section{Query 3: moto e pilota della stessa nazione}
+
+Con la seguente query è possibile andare a visualizzare tutti i piloti che corrono utilizzando una moto prodotta da costruttore riportante la sua stessa nazionalità. Nello specifico si visualizza il nome del pilota, il costruttore e la loro nazione di provenienza.
+\\
+
+\begin{lstlisting}[captionpos=b, caption=Moto e pilota della stessa nazione, label=lst:sparql3,
+   basicstyle=\ttfamily,frame=single]
+SELECT (STR(?pilota) AS ?Pilota) ?costruttore ?nazionalita
+
+WHERE {
+	?p rdf:type :Pilota .
+	?p :haNomePersona ?pilota .
+	?p :haNazione ?nazionalita .
+	?p :guidaMoto ?moto .
+	?moto :costruitaDa ?costruttore .
+	?costruttore :haNazione ?nazionalitaCostruttore .
+	?nazionalita owl:sameAs ?nazionalitaCostruttore .
+}
+\end{lstlisting}
+
+
+\section{Query 4: numero di gare vinte da ogni pilota}
+
+Con la seguente query è possibile andare a visualizzare per ogni pilota il numero di gare vinte, indipendentemente dal campionato.
+\\
+
+\begin{lstlisting}[captionpos=b, caption=Numero di gare vinte da ogni pilota, label=lst:sparql4,
+   basicstyle=\ttfamily,frame=single]
+SELECT (SAMPLE(STR(?pilota)) AS ?Pilota) (COUNT(?piazzamento) AS ?vittorie) 
+
+WHERE {
+	?p rdf:type :Pilota .
+	?p :haNomePersona ?pilota .
+	?p :haOttenuto ?piazzamento .
+	?piazzamento rdf:type :PosizionamentoGara .
+	?piazzamento :haPosizioneFinale 1 .	
+}
+GROUP BY ?p
+\end{lstlisting}
+
+\newpage
+
+\section{Query 5: numero di campionati vinti da urbinati}
+
+Con la seguente query è possibile andare a visualizzare per i piloti nati nella città di Urbino il numero di campionati vinti. La query è derivata da quella in \ref{lst:sparql4} con una piccola modifica nella classe presa in considerazione per i piazzamenti.
+\\
+
+\begin{lstlisting}[captionpos=b, caption=Numero di campionati vinti da ogni pilota, label=lst:sparql5,
+   basicstyle=\ttfamily,frame=single]
+SELECT (SAMPLE(STR(?pilota)) AS ?Pilota) (COUNT(?piazzamento) AS ?vittorie) 
+
+WHERE {
+	?p rdf:type :Pilota .
+	?p :haNomePersona ?pilota .
+	?p :natoInCitta ?citta .
+	?p :haOttenuto ?piazzamento .
+	?piazzamento rdf:type :PosizionamentoCampionato .
+	?piazzamento :haPosizioneFinale 1 .	
+	FILTER (?citta = :Urbino) .
+}
+GROUP BY ?p
+\end{lstlisting}
+
+\section{Query 6: numero di campionati vinti da ogni team}
+
+Con la seguente query è possibile andare a visualizzare per ogni team il numero di campionati vinti. Anche in questo caso la query è derivata da quella in \ref{lst:sparql4} con una modifica per quanto riguarda l'aggregazione e la gestione dei valori nulli.
+\\
+
+\begin{lstlisting}[captionpos=b, caption=Numero di campionati vinti da ogni team, label=lst:sparql6,
+   basicstyle=\ttfamily,frame=single]
+SELECT (SAMPLE(?team) AS ?Team) (COUNT(?piazzamento) AS ?Vittorie) 
+
+WHERE {
+	?team rdf:type :Team .
+	OPTIONAL{
+	?p rdf:type :Pilota .
+	?p :haOttenuto ?piazzamento .
+	?piazzamento rdf:type :PosizionamentoCampionato .
+	?piazzamento :haPosizioneFinale 1 .	
+	?p :pilotaDelTeam ?team .
+	}
+}
+GROUP BY ?team 
+ORDER BY DESC (?Vittorie)
+\end{lstlisting}
+
+\newpage
+
+\section{Query 7: piazzamenti "patriottici"}
+
+Con la seguente query è possibile andare a visualizzare tutti i piazzamenti ottenuti dai piloti nei propri circuiti di casa, ovvero con la stessa nazione associata, solo nel caso in cui corrano con una moto di un costruttore della stesso paese.
+\\
+
+\begin{lstlisting}[captionpos=b, caption=Piazzamenti "patriottici", label=lst:sparql7,
+   basicstyle=\ttfamily,frame=single]
+SELECT (STR(?pilota) AS ?Pilota) ?costruttore (STR(?nomeCircuito) AS ?Circuito) ?nazionalita ?posizione
+
+WHERE {
+	?p rdf:type :Pilota .
+	?p :haNomePersona ?pilota .
+	?p :haNazione ?nazionalita .
+	?p :guidaMoto ?moto .
+	?moto :costruitaDa ?costruttore .
+	?costruttore :haNazione ?nazionalita .
+	?p :haOttenuto ?piazzamento .
+	?piazzamento rdf:type :PosizionamentoGara .
+	?piazzamento :haPosizioneFinale ?posizione .
+	?piazzamento :inClassificaDi ?gara .
+	?gara :corsaInGP ?gp .
+	?gp :haNazione ?nazionalita .
+	?gp :svoltoPresso ?circuito .
+	?circuito :haNome ?nomeCircuito .
+}
+\end{lstlisting}
+
+\section{Query 8: numero di piloti per team}
+
+Con la seguente query è possibile andare a visualizzare tutti i team presenti e il loro numero di piloti a contratto.
+\\
+
+\begin{lstlisting}[captionpos=b, caption=Numero di piloti per team, label=lst:sparql8,
+   basicstyle=\ttfamily,frame=single]
+SELECT (SAMPLE(?t) AS ?team) (COUNT(?p) AS ?NumeroPiloti)
+
+WHERE {
+	?t a :Team .
+	OPTIONAL {
+		?t :teamDi ?p .
+		}
+}
+GROUP BY ?t
+ORDER BY DESC (?NumeroPiloti)
+\end{lstlisting}
+
+\newpage
+
+\section{Query 9: numero di campionati vinti per nazione}
+
+Con la seguente query è possibile andare a visualizzare il numero di campionati vinti da ogni nazione.
+\\
+
+\begin{lstlisting}[captionpos=b, caption=Numero di campionati vinti per nazione, label=lst:sparql9,
+   basicstyle=\ttfamily,frame=single]
+SELECT (SAMPLE(?n) AS ?nazione) (COUNT(?piazzamento) AS ?campionatiVinti) 
+
+WHERE {
+	?p a :Pilota .
+	?p :haOttenuto ?piazzamento .
+	?piazzamento a :PosizionamentoCampionato .
+	?piazzamento :haPosizioneFinale 1 .	
+	?p :haNazione ?n .
+}
+GROUP BY ?n
+\end{lstlisting}
