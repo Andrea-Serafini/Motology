@@ -1,0 +1,169 @@
+############### QUERY SPAQRL ###############
+
+--------------- QUERY 1 ------------------
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://www.example.com/Motology#>
+
+SELECT ?competizione ?pilota ?posizione
+
+WHERE {
+	?competizione rdf:type :Competizione .
+	?competizione :haInClassifica ?piazzamento .
+	?piazzamento :piazzamentoDi ?pilota .
+	?piazzamento :haPosizioneFinale ?posizione .
+}
+ORDER BY ?competizione ?posizione
+
+--------------- QUERY 2 ------------------
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://www.example.com/Motology#>
+
+SELECT ?posizione ?pilota (STR(?gap) AS ?Gap) 
+
+WHERE {
+	
+	?competizione owl:sameAs :Gara_1 .
+	?competizione :haInClassifica ?piazzamento .
+	?piazzamento :piazzamentoDi ?pilota .
+	?piazzamento :haPosizioneFinale ?posizione .
+	?piazzamento :haGap ?gap .
+}
+ORDER BY ?posizione
+
+--------------- QUERY 3 ------------------
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://www.example.com/Motology#>
+
+SELECT (STR(?pilota) AS ?Pilota) ?costruttore ?nazionalita
+
+WHERE {
+	?p rdf:type :Pilota .
+	?p :haNomePersona ?pilota .
+	?p :haNazione ?nazionalita .
+	?p :guidaMoto ?moto .
+	?moto :costruitaDa ?costruttore .
+	?costruttore :haNazione ?nazionalitaCostruttore .
+	?nazionalita owl:sameAs ?nazionalitaCostruttore .
+}
+
+--------------- QUERY 4 ------------------
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://www.example.com/Motology#>
+
+SELECT (SAMPLE(STR(?pilota)) AS ?Pilota) (COUNT(?piazzamento) AS ?vittorie) 
+
+WHERE {
+	?p rdf:type :Pilota .
+	?p :haNomePersona ?pilota .
+	?p :haOttenuto ?piazzamento .
+	?piazzamento rdf:type :PosizionamentoGara .
+	?piazzamento :haPosizioneFinale 1 .	
+}
+GROUP BY ?p
+
+--------------- QUERY 5 ------------------
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://www.example.com/Motology#>
+
+SELECT (SAMPLE(STR(?pilota)) AS ?Pilota) (COUNT(?piazzamento) AS ?vittorie) 
+
+WHERE {
+	?p rdf:type :Pilota .
+	?p :haNomePersona ?pilota .
+	?p :natoInCitta ?citta .
+	?p :haOttenuto ?piazzamento .
+	?piazzamento rdf:type :PosizionamentoCampionato .
+	?piazzamento :haPosizioneFinale 1 .	
+	FILTER (?citta = :Urbino) .
+}
+GROUP BY ?p
+
+--------------- QUERY 6 ------------------
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://www.example.com/Motology#>
+
+SELECT (SAMPLE(?team) AS ?Team) (COUNT(?piazzamento) AS ?Vittorie) 
+
+WHERE {
+	?team rdf:type :Team .
+	OPTIONAL{
+	?p rdf:type :Pilota .
+	?p :haOttenuto ?piazzamento .
+	?piazzamento rdf:type :PosizionamentoCampionato .
+	?piazzamento :haPosizioneFinale 1 .	
+	?p :pilotaDelTeam ?team .
+	}
+}
+GROUP BY ?team 
+ORDER BY DESC (?Vittorie)
+
+--------------- QUERY 7 ------------------
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://www.example.com/Motology#>
+
+SELECT (STR(?pilota) AS ?Pilota) ?costruttore (STR(?nomeCircuito) AS ?Circuito) ?nazionalita ?posizione
+
+WHERE {
+	?p rdf:type :Pilota .
+	?p :haNomePersona ?pilota .
+	?p :haNazione ?nazionalita .
+	?p :guidaMoto ?moto .
+	?moto :costruitaDa ?costruttore .
+	?costruttore :haNazione ?nazionalita .
+	?p :haOttenuto ?piazzamento .
+	?piazzamento rdf:type :PosizionamentoGara .
+	?piazzamento :haPosizioneFinale ?posizione .
+	?piazzamento :inClassificaDi ?gara .
+	?gara :corsaInGP ?gp .
+	?gp :haNazione ?nazionalita .
+	?gp :svoltoPresso ?circuito .
+	?circuito :haNome ?nomeCircuito .
+}
+
+--------------- QUERY 8 ------------------
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://www.example.com/Motology#>
+
+SELECT (SAMPLE(?t) AS ?team) (COUNT(?p) AS ?NumeroPiloti)
+
+WHERE {
+	?t a :Team .
+	OPTIONAL {
+		?t :teamDi ?p .
+		}
+}
+GROUP BY ?t
+ORDER BY DESC (?NumeroPiloti)
+
+--------------- QUERY 9 ------------------
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://www.example.com/Motology#>
+
+SELECT (SAMPLE(?n) AS ?nazione) (COUNT(?piazzamento) AS ?campionatiVinti) 
+
+WHERE {
+	?p a :Pilota .
+	?p :haOttenuto ?piazzamento .
+	?piazzamento a :PosizionamentoCampionato .
+	?piazzamento :haPosizioneFinale 1 .	
+	?p :haNazione ?n .
+}
+GROUP BY ?n

@@ -1,0 +1,2982 @@
+@prefix : <http://www.example.com/Motology#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/#> .
+@prefix moto: <http://www.example.com/Motology#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://www.example.com/Motology#> .
+
+<http://www.example.com/Motology> rdf:type owl:Ontology ;
+                                   dcterms:author "Andrea Serafini" ,
+                                                  "Piero Sanchi" ;
+                                   rdfs:comment "Un'ontologia sviluppata per modellare il mondo delle competizioni motociclistiche, le informazioni principali e le statistiche di contorno."@it .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/author
+dcterms:author rdf:type owl:AnnotationProperty .
+
+
+###  http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
+<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.example.com/Motology#circuitoSponsorizzatoDa
+moto:circuitoSponsorizzatoDa rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf moto:haSponsor ;
+                             owl:inverseOf moto:sponsorizzaCircuito ;
+                             rdfs:domain moto:Circuito ;
+                             rdfs:range moto:Sponsor ;
+                             rdfs:comment "Indica che un circuito è sponsorizzato da uno sponsor."@it ;
+                             rdfs:label "circuitoSponsorizzatoDa"@it .
+
+
+###  http://www.example.com/Motology#cittàNataleDi
+moto:cittàNataleDi rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf moto:haPilota ;
+                   owl:inverseOf moto:natoInCittà ;
+                   rdfs:domain moto:Città ;
+                   rdfs:range moto:Pilota ;
+                   rdfs:comment "Indica la città natale di un pilota."@it ;
+                   rdfs:label "cittàNataleDi"@it .
+
+
+###  http://www.example.com/Motology#compostoDaGP
+moto:compostoDaGP rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf moto:haGP ;
+                  owl:inverseOf moto:svoltoInCampionato ;
+                  rdfs:domain moto:Campionato ;
+                  rdfs:range moto:GranPremio ;
+                  rdfs:comment "Indica che un campionato è composto da gran premi."@it ;
+                  rdfs:label "compostoDaGP"@it .
+
+
+###  http://www.example.com/Motology#corsaInGP
+moto:corsaInGP rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf moto:haGP ;
+               rdfs:domain moto:Competizione ;
+               rdfs:range moto:GranPremio ;
+               rdfs:comment "Indica che una competizione si svolge in un gran premio."@it ;
+               rdfs:label "corsaInGP"@it .
+
+
+###  http://www.example.com/Motology#costruitaDa
+moto:costruitaDa rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf moto:haCostruttore ;
+                 owl:inverseOf moto:produttoreDi ;
+                 rdfs:domain moto:Moto ;
+                 rdfs:range moto:Costruttore ;
+                 rdfs:comment "Indica che una moto è costruita da un costruttore."@it ;
+                 rdfs:label "costruitaDa"@it .
+
+
+###  http://www.example.com/Motology#dipendenteDelTeam
+moto:dipendenteDelTeam rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf moto:haTeam ;
+                       owl:inverseOf moto:haStaff ;
+                       rdfs:domain moto:TeamStaff ;
+                       rdfs:range moto:Team ;
+                       rdfs:comment "Indica che un membro dello staff dipende da un team."@it ;
+                       rdfs:label "dipendenteDelTeam"@it .
+
+
+###  http://www.example.com/Motology#guidaMoto
+moto:guidaMoto rdf:type owl:ObjectProperty ;
+               owl:inverseOf moto:guidataDa ;
+               rdfs:domain moto:Pilota ;
+               rdfs:range moto:Moto ;
+               rdfs:comment "Indica che un pilota guida una moto."@it ;
+               rdfs:label "guidaMoto"@it .
+
+
+###  http://www.example.com/Motology#guidataDa
+moto:guidataDa rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf moto:haPilota ;
+               rdfs:domain moto:Moto ;
+               rdfs:range moto:Pilota ;
+               rdfs:comment "Indica che una moto è guidata da un pilota."@it ;
+               rdfs:label "guidataDa"@it .
+
+
+###  http://www.example.com/Motology#haCapotecnico
+moto:haCapotecnico rdf:type owl:ObjectProperty ;
+                   owl:inverseOf moto:seguePilota ;
+                   rdfs:domain moto:Pilota ;
+                   rdfs:range moto:Capotecnico ;
+                   rdfs:comment "Indica che un pilota ha un capotecnico."@it ;
+                   rdfs:label "haCapotecnico"@it .
+
+
+###  http://www.example.com/Motology#haCircuito
+moto:haCircuito rdf:type owl:ObjectProperty ;
+                rdfs:range moto:Circuito ;
+                rdfs:comment "Indica che un oggetto ha un circuito associato."@it ;
+                rdfs:label "haCircuito"@it .
+
+
+###  http://www.example.com/Motology#haCittà
+moto:haCittà rdf:type owl:ObjectProperty ;
+             rdfs:range moto:Città ;
+             rdfs:comment "Indica che un oggetto ha una città associata."@it ;
+             rdfs:label "haCittà"@it .
+
+
+###  http://www.example.com/Motology#haCostruttore
+moto:haCostruttore rdf:type owl:ObjectProperty ;
+                   rdfs:range moto:Costruttore ;
+                   rdfs:comment "Indica che un oggetto ha un costruttore associato."@it ;
+                   rdfs:label "haCostruttore"@it .
+
+
+###  http://www.example.com/Motology#haCostruttoreDelTeam
+moto:haCostruttoreDelTeam rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf moto:haCostruttore ;
+                          rdfs:domain moto:Team ;
+                          rdfs:range moto:Costruttore ;
+                          rdfs:comment "Indica che un team utilizza moto di un costruttore." ;
+                          rdfs:label "haCostruttoreDelTeam" .
+
+
+###  http://www.example.com/Motology#haGP
+moto:haGP rdf:type owl:ObjectProperty ;
+          rdfs:range moto:GranPremio ;
+          rdfs:comment "Indica che un oggetto ha un gran premio associato."@it ;
+          rdfs:label "haGP"@it .
+
+
+###  http://www.example.com/Motology#haInClassifica
+moto:haInClassifica rdf:type owl:ObjectProperty ;
+                    owl:inverseOf moto:inClassificaDi ;
+                    rdfs:domain moto:Competizione ;
+                    rdfs:range moto:Posizionamento ;
+                    rdfs:comment "Indica che una competizione ha un piazzamento in classifica." ;
+                    rdfs:label "haInCassifica" .
+
+
+###  http://www.example.com/Motology#haInScuderia
+moto:haInScuderia rdf:type owl:ObjectProperty ;
+                  owl:inverseOf moto:motoDelTeam ;
+                  rdfs:domain moto:Team ;
+                  rdfs:range moto:Moto ;
+                  rdfs:comment "Indica che un team ha una moto nella propria scuderia."@it ;
+                  rdfs:label "haInScuderia"@it .
+
+
+###  http://www.example.com/Motology#haMotore
+moto:haMotore rdf:type owl:ObjectProperty ;
+              owl:inverseOf moto:montatoDa ;
+              rdfs:domain moto:Moto ;
+              rdfs:range moto:Motore ;
+              rdfs:comment "Indica che una moto ha un motore associato."@it ;
+              rdfs:label "haMotore"@it .
+
+
+###  http://www.example.com/Motology#haNazione
+moto:haNazione rdf:type owl:ObjectProperty ;
+               rdfs:domain [ rdf:type owl:Class ;
+                             owl:unionOf ( moto:Circuito
+                                           moto:Città
+                                           moto:Costruttore
+                                           moto:GranPremio
+                                           <http://xmlns.com/foaf/0.1/Person>
+                                         )
+                           ] ;
+               rdfs:range moto:Nazione ;
+               owl:propertyChainAxiom ( moto:haCittà
+                                        moto:haNazione
+                                      ) ,
+                                      ( moto:svoltoPresso
+                                        moto:situatoInCittà
+                                        moto:haNazione
+                                      ) ;
+               rdfs:comment "Indica che un oggetto proviene da o è associata ad una nazione."@it ;
+               rdfs:label "haNazione"@it .
+
+
+###  http://www.example.com/Motology#haOttenuto
+moto:haOttenuto rdf:type owl:ObjectProperty ;
+                owl:inverseOf moto:piazzamentoDi ;
+                rdfs:domain moto:Pilota ;
+                rdfs:range moto:Posizionamento ;
+                rdfs:comment "Indica che un pilota ha ottenuto un piazzamento."@it ;
+                rdfs:label "haOttenuto"@it .
+
+
+###  http://www.example.com/Motology#haPilota
+moto:haPilota rdf:type owl:ObjectProperty ;
+              rdfs:range moto:Pilota ;
+              rdfs:comment "Indica che un oggetto è associato ad un pilota."@it ;
+              rdfs:label "haPilota"@it .
+
+
+###  http://www.example.com/Motology#haSponsor
+moto:haSponsor rdf:type owl:ObjectProperty ;
+               rdfs:range moto:Sponsor ;
+               rdfs:comment "Indica che un oggetto è associato ad uno sponsor."@it ;
+               rdfs:label "haSponsor"@it .
+
+
+###  http://www.example.com/Motology#haStaff
+moto:haStaff rdf:type owl:ObjectProperty ;
+             rdfs:domain moto:Team ;
+             rdfs:range moto:TeamStaff ;
+             rdfs:comment "Indica che un team ha uno staff."@it ;
+             rdfs:label "haStaff"@it .
+
+
+###  http://www.example.com/Motology#haTeam
+moto:haTeam rdf:type owl:ObjectProperty ;
+            rdfs:range moto:Team ;
+            rdfs:comment "Indica che ad un oggetto è associato un team."@it ;
+            rdfs:label "haTeam"@it .
+
+
+###  http://www.example.com/Motology#inClassificaDi
+moto:inClassificaDi rdf:type owl:ObjectProperty ;
+                    rdfs:domain moto:Posizionamento ;
+                    rdfs:range moto:Competizione ;
+                    rdfs:comment "Indica che il piazzamento concorre alla classifica di una competizione."@it ;
+                    rdfs:label "inClassificaDi"@it .
+
+
+###  http://www.example.com/Motology#lavoraPer
+moto:lavoraPer rdf:type owl:ObjectProperty ;
+               rdfs:domain moto:Stuart ;
+               rdfs:range moto:Circuito ;
+               rdfs:comment "Indica che uno stuart lavora per un circuito."@it ;
+               rdfs:label "lavoraPer"@it .
+
+
+###  http://www.example.com/Motology#montatoDa
+moto:montatoDa rdf:type owl:ObjectProperty ;
+               rdfs:domain moto:Motore ;
+               rdfs:range moto:Moto ;
+               rdfs:comment "Indica che un motore è montato su una moto."@it ;
+               rdfs:label "montatoDa"@it .
+
+
+###  http://www.example.com/Motology#motoDelTeam
+moto:motoDelTeam rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf moto:haTeam ;
+                 rdfs:domain moto:Moto ;
+                 rdfs:range moto:Team ;
+                 rdfs:comment "Indica che una moto appartiene ad un team."@it ;
+                 rdfs:label "motoDelTeam"@it .
+
+
+###  http://www.example.com/Motology#natoInCittà
+moto:natoInCittà rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf moto:haCittà ;
+                 rdfs:domain moto:Pilota ;
+                 rdfs:range moto:Città ;
+                 rdfs:comment "Indica che un pilota è nato in una città."@it ;
+                 rdfs:label "natoInCittà"@it .
+
+
+###  http://www.example.com/Motology#ospitaCircuito
+moto:ospitaCircuito rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf moto:haCircuito ;
+                    owl:inverseOf moto:situatoInCittà ;
+                    rdfs:domain moto:Città ;
+                    rdfs:range moto:Circuito ;
+                    rdfs:comment "Indica che una città ospita un circuito."@it ;
+                    rdfs:label "ospitaCircuito"@it .
+
+
+###  http://www.example.com/Motology#ospitaGP
+moto:ospitaGP rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf moto:haGP ;
+              owl:inverseOf moto:svoltoPresso ;
+              rdfs:domain moto:Circuito ;
+              rdfs:range moto:GranPremio ;
+              rdfs:comment "Indica che un circuito ospita un gran premio."@it ;
+              rdfs:label "ospitaGP"@it .
+
+
+###  http://www.example.com/Motology#piazzamentoDi
+moto:piazzamentoDi rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf moto:haPilota ;
+                   rdfs:domain moto:Posizionamento ;
+                   rdfs:range moto:Pilota ;
+                   rdfs:comment "Indica che un piazzamento è stato ottenuto da un pilota."@it ;
+                   rdfs:label "piazzamentoDi"@it .
+
+
+###  http://www.example.com/Motology#pilotaDelTeam
+moto:pilotaDelTeam rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf moto:haTeam ;
+                   owl:inverseOf moto:teamDi ;
+                   rdfs:domain moto:Pilota ;
+                   rdfs:range moto:Team ;
+                   rdfs:comment "Indica che un pilota corre per un team."@it ;
+                   rdfs:label "pilotaDelTeam"@it .
+
+
+###  http://www.example.com/Motology#posizionamentoDiCostruttore
+moto:posizionamentoDiCostruttore rdf:type owl:ObjectProperty ;
+                                 rdfs:subPropertyOf moto:haCostruttore ;
+                                 rdfs:domain moto:PosizionamentoCampionato ;
+                                 rdfs:range moto:Costruttore ;
+                                 rdfs:comment "Indica che il costruttore ha ottenuto un posizionamento."@it ;
+                                 rdfs:label "posizionamentoDiCostruttore"@it .
+
+
+###  http://www.example.com/Motology#produttoreDi
+moto:produttoreDi rdf:type owl:ObjectProperty ;
+                  rdfs:domain moto:Costruttore ;
+                  rdfs:range moto:Moto ;
+                  rdfs:comment "Indica che un produttore ha costruito una moto."@it ;
+                  rdfs:label "produttoreDi"@it .
+
+
+###  http://www.example.com/Motology#proveInGP
+moto:proveInGP rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf moto:haGP ;
+               rdfs:domain moto:ProveLibere ;
+               rdfs:range moto:GranPremio ;
+               rdfs:comment "Indica che un turno di prove libere si svolge in un gran premio."@it ;
+               rdfs:label "proveInGP"@it .
+
+
+###  http://www.example.com/Motology#qualificatoConTempo
+moto:qualificatoConTempo rdf:type owl:ObjectProperty ;
+                         owl:inverseOf moto:tempoInQ ;
+                         rdfs:domain moto:PosizionamentoQualifiche ;
+                         rdfs:range moto:MigliorTempo ;
+                         rdfs:comment "Indica che un posizionamento in qualifica ha un tempo associato."@it ;
+                         rdfs:label "qualificatoConTempo"@it .
+
+
+###  http://www.example.com/Motology#seguePilota
+moto:seguePilota rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf moto:haPilota ;
+                 rdfs:domain moto:Capotecnico ;
+                 rdfs:range moto:Pilota ;
+                 rdfs:comment "Indica che un capotecnico segue un pilota."@it ;
+                 rdfs:label "seguePilota"@it .
+
+
+###  http://www.example.com/Motology#situatoInCittà
+moto:situatoInCittà rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf moto:haCittà ;
+                    rdfs:domain moto:Circuito ;
+                    rdfs:range moto:Città ;
+                    rdfs:comment "Indica che un circuito è situato in una città."@it ;
+                    rdfs:label "situatoInCittà"@it .
+
+
+###  http://www.example.com/Motology#sponsorizzaCircuito
+moto:sponsorizzaCircuito rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf moto:haCircuito ;
+                         rdfs:domain moto:Sponsor ;
+                         rdfs:range moto:Circuito ;
+                         rdfs:comment "Indica che uno sponsor sponsorizza un circuito."@it ;
+                         rdfs:label "sponsorizzaCircuito"@it .
+
+
+###  http://www.example.com/Motology#sponsorizzaTeam
+moto:sponsorizzaTeam rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf moto:haTeam ;
+                     owl:inverseOf moto:teamSponsorizzatoDa ;
+                     rdfs:domain moto:Sponsor ;
+                     rdfs:range moto:Team ;
+                     rdfs:comment "Indica che un sponsor sponsorizza un team."@it ;
+                     rdfs:label "sponsorizzaTeam"@it .
+
+
+###  http://www.example.com/Motology#svoltoInCampionato
+moto:svoltoInCampionato rdf:type owl:ObjectProperty ;
+                        rdfs:domain moto:GranPremio ;
+                        rdfs:range moto:Campionato ;
+                        rdfs:comment "Indica che un gran premio è associato ad un campionato."@it ;
+                        rdfs:label "svoltoInCampionato"@it .
+
+
+###  http://www.example.com/Motology#svoltoPresso
+moto:svoltoPresso rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf moto:haCircuito ;
+                  rdfs:domain moto:GranPremio ;
+                  rdfs:range moto:Circuito ;
+                  rdfs:comment "Indica che un gran premio si svolge presso un circuito."@it ;
+                  rdfs:label "svoltoPresso"@it .
+
+
+###  http://www.example.com/Motology#teamDi
+moto:teamDi rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf moto:haPilota ;
+            rdfs:domain moto:Team ;
+            rdfs:range moto:Pilota ;
+            rdfs:comment "Indica che un team ha un pilota a contratto."@it ;
+            rdfs:label "teamDi"@it .
+
+
+###  http://www.example.com/Motology#teamSponsorizzatoDa
+moto:teamSponsorizzatoDa rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf moto:haSponsor ;
+                         rdfs:domain moto:Team ;
+                         rdfs:range moto:Sponsor ;
+                         rdfs:comment "Indica che un team è sponsorizzato da uno sponsor."@it ;
+                         rdfs:label "teamSponsorizzatoDa"@it .
+
+
+###  http://www.example.com/Motology#tempoDi
+moto:tempoDi rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf moto:haPilota ;
+             rdfs:domain moto:MigliorTempo ;
+             rdfs:range moto:Pilota ;
+             rdfs:comment "Indica che un tempo è stato segnato da un pilota."@it ;
+             rdfs:label "tempoDi"@it .
+
+
+###  http://www.example.com/Motology#tempoInFP
+moto:tempoInFP rdf:type owl:ObjectProperty ;
+               rdfs:domain moto:MigliorTempo ;
+               rdfs:range moto:ProveLibere ;
+               rdfs:comment "Indica che un tempo è associato ad una prova libera."@it ;
+               rdfs:label "tempoInFP"@it .
+
+
+###  http://www.example.com/Motology#tempoInQ
+moto:tempoInQ rdf:type owl:ObjectProperty ;
+              rdfs:domain moto:MigliorTempo ;
+              rdfs:range moto:PosizionamentoQualifiche ;
+              rdfs:comment "Indica che un tempo è associato ad un posizionamento in qualifica."@it ;
+              rdfs:label "tempoInQ"@it .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.example.com/Motology#haAnno
+moto:haAnno rdf:type owl:DatatypeProperty ;
+            rdfs:domain [ rdf:type owl:Class ;
+                          owl:unionOf ( moto:Campionato
+                                        moto:GranPremio
+                                      )
+                        ] ;
+            rdfs:range xsd:integer ;
+            rdfs:comment "Indica in che anno si svolge un campionato."@it ;
+            rdfs:label "haAnno"@it .
+
+
+###  http://www.example.com/Motology#haCilindrata
+moto:haCilindrata rdf:type owl:DatatypeProperty ;
+                  rdfs:domain moto:MotoreTermico ;
+                  rdfs:range xsd:integer ;
+                  rdfs:comment "Indica la cilindrata di un motore termico."@it ;
+                  rdfs:label "haCilindrata"@it .
+
+
+###  http://www.example.com/Motology#haCilindri
+moto:haCilindri rdf:type owl:DatatypeProperty ;
+                rdfs:domain moto:MotoreTermico ;
+                rdfs:range xsd:integer ;
+                rdfs:comment "Indica il numero di cilindri di un motore termico."@it ;
+                rdfs:label "haCilindri"@it .
+
+
+###  http://www.example.com/Motology#haCoppia
+moto:haCoppia rdf:type owl:DatatypeProperty ;
+              rdfs:domain moto:Motore ;
+              rdfs:range xsd:integer ;
+              rdfs:comment "Indica la coppia di un motore."@it ;
+              rdfs:label "haCoppia"@it .
+
+
+###  http://www.example.com/Motology#haGap
+moto:haGap rdf:type owl:DatatypeProperty ;
+           rdfs:domain moto:PosizionamentoGara ;
+           rdfs:range xsd:string ;
+           rdfs:comment "Indica il gap nel posizionamento in gara."@it ;
+           rdfs:label "haGap"@it .
+
+
+###  http://www.example.com/Motology#haLunghezza
+moto:haLunghezza rdf:type owl:DatatypeProperty ;
+                 rdfs:domain moto:Circuito ;
+                 rdfs:range xsd:integer ;
+                 rdfs:comment "Indica la lunghezza di un circuito."@it ;
+                 rdfs:label "haLunghezza"@it .
+
+
+###  http://www.example.com/Motology#haNome
+moto:haNome rdf:type owl:DatatypeProperty ;
+            rdfs:domain [ rdf:type owl:Class ;
+                          owl:unionOf ( moto:Costruttore
+                                        moto:Sponsor
+                                      )
+                        ] ;
+            rdfs:range xsd:string ;
+            rdfs:comment "Indica il nome di un oggetto."@it ;
+            rdfs:label "haNome"@it .
+
+
+###  http://www.example.com/Motology#haNomePersona
+moto:haNomePersona rdf:type owl:DatatypeProperty ;
+                   rdfs:domain <http://xmlns.com/foaf/0.1/Person> ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "Indica il nome proprio di una persona."@it ;
+                   rdfs:label "haNomePersona"@it .
+
+
+###  http://www.example.com/Motology#haNumero
+moto:haNumero rdf:type owl:DatatypeProperty ;
+              rdfs:domain [ rdf:type owl:Class ;
+                            owl:unionOf ( moto:Moto
+                                          moto:Pilota
+                                        )
+                          ] ;
+              rdfs:range xsd:integer ;
+              rdfs:comment "Indica il numero di un pilota."@it ;
+              rdfs:label "haNumero"@it .
+
+
+###  http://www.example.com/Motology#haPosizioneFinale
+moto:haPosizioneFinale rdf:type owl:DatatypeProperty ;
+                       rdfs:domain moto:Posizionamento ;
+                       rdfs:range xsd:integer ;
+                       rdfs:comment "Indica la posizione del piazzamento."@it ;
+                       rdfs:label "haPosizioneFinale"@it .
+
+
+###  http://www.example.com/Motology#haPotenza
+moto:haPotenza rdf:type owl:DatatypeProperty ;
+               rdfs:domain moto:Motore ;
+               rdfs:range xsd:integer ;
+               rdfs:comment "Indica la potenza di un motore."@it ;
+               rdfs:label "haPotenza"@it .
+
+
+###  http://www.example.com/Motology#haPunti
+moto:haPunti rdf:type owl:DatatypeProperty ;
+             rdfs:domain [ rdf:type owl:Class ;
+                           owl:unionOf ( moto:PosizionamentoCampionato
+                                         moto:PosizionamentoGara
+                                       )
+                         ] ;
+             rdfs:range xsd:integer ;
+             rdfs:comment "Indica i punti ottenuti dal piazzamento."@it ;
+             rdfs:label "haPunti"@it .
+
+
+###  http://www.example.com/Motology#haTempo
+moto:haTempo rdf:type owl:DatatypeProperty ;
+             rdfs:domain moto:MigliorTempo ;
+             rdfs:range xsd:string ;
+             rdfs:comment "Indica il miglior tempo registrato."@it ;
+             rdfs:label "haTempo"@it .
+
+
+###  http://www.example.com/Motology#haTracciato
+moto:haTracciato rdf:type owl:DatatypeProperty ;
+                 rdfs:domain moto:Circuito ;
+                 rdfs:range xsd:anyURI ;
+                 rdfs:comment "Indica il collegamento all'immagine del tracciato."@it ;
+                 rdfs:label "haTracciato"@it .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://dbpedia.org/ontology/city
+dbo:city rdf:type owl:Class ;
+         owl:equivalentClass moto:Città ;
+         rdfs:comment "A city is a large human settlement"@en ,
+                      "Una città è un insediamento umano di grandi dimensioni"@it ;
+         rdfs:label "Città"@it ,
+                    "City"@en .
+
+
+###  http://dbpedia.org/ontology/nation
+dbo:nation rdf:type owl:Class ;
+           owl:equivalentClass moto:Nazione ;
+           rdfs:comment "A nation is a stable community of people"@en ,
+                        "Una nazione è una comunità stabile di persone"@it ;
+           rdfs:label "Nation"@en ,
+                      "Nazione"@it .
+
+
+###  http://www.example.com/Motology#Campionato
+moto:Campionato rdf:type owl:Class ;
+                rdfs:subClassOf moto:Competizione ;
+                rdfs:comment "A championship is a type of competition"@en ,
+                             "Un campionato è un tipo di competizione"@it ;
+                rdfs:label "Campionato"@it ,
+                           "Championship"@en .
+
+
+###  http://www.example.com/Motology#Capotecnico
+moto:Capotecnico rdf:type owl:Class ;
+                 owl:equivalentClass [ owl:intersectionOf ( moto:TeamStaff
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty moto:seguePilota ;
+                                                              owl:someValuesFrom moto:Pilota
+                                                            ]
+                                                          ) ;
+                                       rdf:type owl:Class
+                                     ] ;
+                 rdfs:subClassOf moto:TeamStaff ;
+                 rdfs:comment "A head mechanic is responsible for managing the team of mechanics"@en ,
+                              "Un capotecnico è responsabile della gestione del team di meccanici"@it ;
+                 rdfs:label "Capotecnico"@it ,
+                            "Head Mechanic"@en .
+
+
+###  http://www.example.com/Motology#Circuito
+moto:Circuito rdf:type owl:Class ;
+              rdfs:comment "A circuit is a closed track for racing"@en ,
+                           "Un circuito è una pista chiusa per le gare"@it ;
+              rdfs:label "Circuit"@en ,
+                         "Circuito"@it .
+
+
+###  http://www.example.com/Motology#Città
+moto:Città rdf:type owl:Class ;
+           rdfs:comment "A city is a large human settlement"@en ,
+                        "Una città è un insediamento umano di grandi dimensioni"@it ;
+           rdfs:label "Città"@it ,
+                      "City"@en .
+
+
+###  http://www.example.com/Motology#Competizione
+moto:Competizione rdf:type owl:Class ;
+                  owl:disjointUnionOf ( moto:Campionato
+                                        moto:Gara
+                                        moto:Qualifiche
+                                      ) ;
+                  rdfs:comment "A competition is an event where participants compete against each other"@en ,
+                               "Una competizione è un evento in cui i partecipanti competono tra loro"@it ;
+                  rdfs:label "Competition"@en ,
+                             "Competizione"@it .
+
+
+###  http://www.example.com/Motology#Costruttore
+moto:Costruttore rdf:type owl:Class ;
+                 rdfs:comment "A constructor is a company that builds racing vehicles"@en ,
+                              "Un costruttore è un'azienda che costruisce veicoli da corsa"@it ;
+                 rdfs:label "Constructor"@en ,
+                            "Costruttore"@it .
+
+
+###  http://www.example.com/Motology#FP1
+moto:FP1 rdf:type owl:Class ;
+         rdfs:subClassOf moto:ProveLibere ;
+         rdfs:comment "Free Practice 1 session"@en ,
+                      "Sessione di prove libere 1"@it ;
+         rdfs:label "Free Practice 1"@en ,
+                    "Prove Libere 1"@it .
+
+
+###  http://www.example.com/Motology#FP2
+moto:FP2 rdf:type owl:Class ;
+         rdfs:subClassOf moto:ProveLibere ;
+         rdfs:comment "Free Practice 2 session"@en ,
+                      "Sessione di prove libere 2"@it ;
+         rdfs:label "Free Practice 2"@en ,
+                    "Prove Libere 2"@it .
+
+
+###  http://www.example.com/Motology#Gara
+moto:Gara rdf:type owl:Class ;
+          rdfs:subClassOf moto:Competizione ;
+          rdfs:comment "A race is a competition between participants"@en ,
+                       "Una gara è una competizione tra partecipanti"@it ;
+          rdfs:label "Gara"@it ,
+                     "Race"@en .
+
+
+###  http://www.example.com/Motology#Gara1
+moto:Gara1 rdf:type owl:Class ;
+           rdfs:subClassOf moto:Gara ;
+           rdfs:comment "La prima gara di un evento"@it ,
+                        "The first race of an event"@en ;
+           rdfs:label "Gara 1"@it ,
+                      "Race 1"@en .
+
+
+###  http://www.example.com/Motology#Gara2
+moto:Gara2 rdf:type owl:Class ;
+           rdfs:subClassOf moto:Gara ;
+           rdfs:comment "La seconda gara di un evento"@it ,
+                        "The second race of an event"@en ;
+           rdfs:label "Gara 2"@it ,
+                      "Race 2"@en .
+
+
+###  http://www.example.com/Motology#GaraSprint
+moto:GaraSprint rdf:type owl:Class ;
+                rdfs:subClassOf moto:Gara ;
+                rdfs:comment "A sprint race is a shorter race with fewer laps"@en ,
+                             "Una gara sprint è una gara più breve con meno giri"@it ;
+                rdfs:label "Gara Sprint"@it ,
+                           "Sprint Race"@en .
+
+
+###  http://www.example.com/Motology#GranPremio
+moto:GranPremio rdf:type owl:Class ;
+                rdfs:comment "A Grand Prix is a major event in motorsport"@en ,
+                             "Un Gran Premio è un evento importante nel motorsport"@it ;
+                rdfs:label "Gran Premio"@it ,
+                           "Grand Prix"@en .
+
+
+###  http://www.example.com/Motology#Leggenda
+moto:Leggenda rdf:type owl:Class ;
+              rdfs:subClassOf moto:Pilota ;
+              rdfs:comment "A legend is a rider who has won every championship"@en ,
+                           "Una leggenda è un pilota che ha vinto ogni campionato"@it ;
+              rdfs:label "Legend"@en ,
+                         "Leggenda"@it .
+
+
+###  http://www.example.com/Motology#MigliorTempo
+moto:MigliorTempo rdf:type owl:Class ;
+                  rdfs:comment "Il miglior tempo sul giro ottenuto da un partecipante"@it ,
+                               "The best lap time achieved by a participant"@en ;
+                  rdfs:label "Best Time"@en ,
+                             "Miglior Tempo"@it .
+
+
+###  http://www.example.com/Motology#Moto
+moto:Moto rdf:type owl:Class ;
+          rdfs:comment "A motorcycle is a two-wheeled motor vehicle"@en ,
+                       "Una moto è un veicolo a motore a due ruote"@it ;
+          rdfs:label "Moto"@it ,
+                     "Motorcycle"@en .
+
+
+###  http://www.example.com/Motology#Moto2
+moto:Moto2 rdf:type owl:Class ;
+           rdfs:subClassOf moto:Campionato ;
+           rdfs:comment "Moto2 is a motorcycle racing championship"@en ,
+                        "Moto2 è un campionato di corse di moto"@it ;
+           rdfs:label "Campionato Moto2"@it ,
+                      "Moto2 Championship"@en .
+
+
+###  http://www.example.com/Motology#Moto3
+moto:Moto3 rdf:type owl:Class ;
+           rdfs:subClassOf moto:Campionato ;
+           rdfs:comment "Moto3 is a motorcycle racing championship"@en ,
+                        "Moto3 è un campionato di corse di moto"@it ;
+           rdfs:label "Campionato Moto3"@it ,
+                      "Moto3 Championship"@en .
+
+
+###  http://www.example.com/Motology#MotoE
+moto:MotoE rdf:type owl:Class ;
+           rdfs:subClassOf moto:Campionato ;
+           rdfs:comment "MotoE is a motorcycle racing championship"@en ,
+                        "MotoE è un campionato di corse di moto"@it ;
+           rdfs:label "Campionato MotoE"@it ,
+                      "MotoE Championship"@en .
+
+
+###  http://www.example.com/Motology#MotoGP
+moto:MotoGP rdf:type owl:Class ;
+            rdfs:subClassOf moto:Campionato ;
+            rdfs:comment "MotoGP is the premier class of motorcycle racing"@en ,
+                         "MotoGP è la classe regina delle corse di moto"@it ;
+            rdfs:label "Campionato MotoGP"@it ,
+                       "MotoGP Championship"@en .
+
+
+###  http://www.example.com/Motology#Motore
+moto:Motore rdf:type owl:Class ;
+            rdfs:comment "An engine is a machine that converts energy into mechanical motion"@en ,
+                         "Un motore è una macchina che converte l'energia in movimento meccanico"@it ;
+            rdfs:label "Engine"@en ,
+                       "Motore"@it .
+
+
+###  http://www.example.com/Motology#MotoreBicilindrico
+moto:MotoreBicilindrico rdf:type owl:Class ;
+                        owl:equivalentClass [ owl:intersectionOf ( moto:MotoreTermico
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty moto:haCilindri ;
+                                                                     owl:hasValue 2
+                                                                   ]
+                                                                 ) ;
+                                              rdf:type owl:Class
+                                            ] ;
+                        rdfs:comment "A twin-cylinder engine has two cylinders"@en ,
+                                     "Un motore bicilindrico ha due cilindri"@it ;
+                        rdfs:label "Motore bicilindrico"@it ,
+                                   "Twin-cylinder Engine"@en .
+
+
+###  http://www.example.com/Motology#MotoreElettrico
+moto:MotoreElettrico rdf:type owl:Class ;
+                     rdfs:subClassOf moto:Motore ;
+                     rdfs:comment "An electric engine is powered by electricity"@en ,
+                                  "Un motore elettrico è alimentato da elettricità"@it ;
+                     rdfs:label "Electric Engine"@en ,
+                                "Motore elettrico"@it .
+
+
+###  http://www.example.com/Motology#MotoreQuadricilindrico
+moto:MotoreQuadricilindrico rdf:type owl:Class ;
+                            owl:equivalentClass [ owl:intersectionOf ( moto:MotoreTermico
+                                                                       [ rdf:type owl:Restriction ;
+                                                                         owl:onProperty moto:haCilindri ;
+                                                                         owl:hasValue 4
+                                                                       ]
+                                                                     ) ;
+                                                  rdf:type owl:Class
+                                                ] ;
+                            rdfs:comment "A four-cylinder engine has four cylinders"@en ,
+                                         "Un motore quadricilindrico ha quattro cilindri"@it ;
+                            rdfs:label "Four-cylinder Engine"@en ,
+                                       "Motore quadricilindrico"@it .
+
+
+###  http://www.example.com/Motology#MotoreTermico
+moto:MotoreTermico rdf:type owl:Class ;
+                   owl:equivalentClass [ owl:intersectionOf ( moto:Motore
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty moto:haCilindrata ;
+                                                                owl:someValuesFrom xsd:integer
+                                                              ]
+                                                            ) ;
+                                         rdf:type owl:Class
+                                       ] ,
+                                       [ owl:intersectionOf ( moto:Motore
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty moto:haCilindri ;
+                                                                owl:someValuesFrom xsd:integer
+                                                              ]
+                                                            ) ;
+                                         rdf:type owl:Class
+                                       ] ;
+                   rdfs:subClassOf moto:Motore ;
+                   rdfs:comment "An internal combustion engine uses the combustion of fuel to generate power"@en ,
+                                "Un motore a combustione interna utilizza la combustione del carburante per generare energia"@it ;
+                   rdfs:label "Internal Combustion Engine"@en ,
+                              "Motore a combustione interna"@it .
+
+
+###  http://www.example.com/Motology#Nazione
+moto:Nazione rdf:type owl:Class ;
+             rdfs:comment "A nation is a stable community of people"@en ,
+                          "Una nazione è una comunità stabile di persone"@it ;
+             rdfs:label "Nation"@en ,
+                        "Nazione"@it .
+
+
+###  http://www.example.com/Motology#Pilota
+moto:Pilota rdf:type owl:Class ;
+            rdfs:subClassOf <http://xmlns.com/foaf/0.1/Person> ;
+            rdfs:comment "A rider is a person who operates a motorcycle"@en ,
+                         "Un pilota è una persona che guida una moto"@it ;
+            rdfs:label "Pilota"@it ,
+                       "Rider"@en .
+
+
+###  http://www.example.com/Motology#Posizionamento
+moto:Posizionamento rdf:type owl:Class ;
+                    rdfs:comment "Il posizionamento rappresenta la classifica o la posizione dei partecipanti"@it ,
+                                 "Positioning represents the ranking or placement of participants"@en ;
+                    rdfs:label "Positioning"@en ,
+                               "Posizionamento"@it .
+
+
+###  http://www.example.com/Motology#PosizionamentoCampionato
+moto:PosizionamentoCampionato rdf:type owl:Class ;
+                              rdfs:subClassOf moto:Posizionamento ;
+                              rdfs:comment "Positioning in the championship standings"@en ,
+                                           "Posizionamento nella classifica del campionato"@it ;
+                              rdfs:label "Championship Positioning"@en ,
+                                         "Posizionamento Campionato"@it .
+
+
+###  http://www.example.com/Motology#PosizionamentoGara
+moto:PosizionamentoGara rdf:type owl:Class ;
+                        rdfs:subClassOf moto:Posizionamento ;
+                        rdfs:comment "Positioning in a race"@en ,
+                                     "Posizionamento in una gara"@it ;
+                        rdfs:label "Posizionamento Gara"@it ,
+                                   "Race Positioning"@en .
+
+
+###  http://www.example.com/Motology#PosizionamentoQualifiche
+moto:PosizionamentoQualifiche rdf:type owl:Class ;
+                              rdfs:subClassOf moto:Posizionamento ;
+                              rdfs:comment "Positioning in the qualifying session"@en ,
+                                           "Posizionamento nella sessione di qualifica"@it ;
+                              rdfs:label "Posizionamento Qualifiche"@it ,
+                                         "Qualifying Positioning"@en .
+
+
+###  http://www.example.com/Motology#ProveLibere
+moto:ProveLibere rdf:type owl:Class ;
+                 owl:disjointUnionOf ( moto:FP1
+                                       moto:FP2
+                                     ) ;
+                 rdfs:comment "Free practice sessions before a race"@en ,
+                              "Sessioni di prove libere prima di una gara"@it ;
+                 rdfs:label "Free Practice"@en ,
+                            "Prove Libere"@it .
+
+
+###  http://www.example.com/Motology#Q1
+moto:Q1 rdf:type owl:Class ;
+        rdfs:subClassOf moto:Qualifiche ;
+        rdfs:comment "La prima sessione di qualifica"@it ,
+                     "The first qualifying session"@en ;
+        rdfs:label "Q1"@en ,
+                   "Q1"@it .
+
+
+###  http://www.example.com/Motology#Q2
+moto:Q2 rdf:type owl:Class ;
+        rdfs:subClassOf moto:Qualifiche ;
+        rdfs:comment "La seconda sessione di qualifica"@it ,
+                     "The second qualifying session"@en ;
+        rdfs:label "Q2"@en ,
+                   "Q2"@it .
+
+
+###  http://www.example.com/Motology#Qualifiche
+moto:Qualifiche rdf:type owl:Class ;
+                rdfs:subClassOf moto:Competizione ;
+                rdfs:comment "A qualifying session determines the starting positions for a race"@en ,
+                             "Una sessione di qualifica determina le posizioni di partenza per una gara"@it ;
+                rdfs:label "Qualifying Session"@en ,
+                           "Sessione di Qualifica"@it .
+
+
+###  http://www.example.com/Motology#Sponsor
+moto:Sponsor rdf:type owl:Class ;
+             rdfs:comment "A sponsor provides financial support to a team or event"@en ,
+                          "Uno sponsor fornisce supporto finanziario a una squadra o a un evento"@it ;
+             rdfs:label "Sponsor"@en ,
+                        "Sponsor"@it .
+
+
+###  http://www.example.com/Motology#Staff
+moto:Staff rdf:type owl:Class ;
+           rdfs:subClassOf <http://xmlns.com/foaf/0.1/Person> ;
+           rdfs:comment "Membri dello staff coinvolti nel motorsport"@it ,
+                        "Staff members involved in motorsport"@en ;
+           rdfs:label "Staff"@en ,
+                      "Staff"@it .
+
+
+###  http://www.example.com/Motology#Stuart
+moto:Stuart rdf:type owl:Class ;
+            owl:equivalentClass [ owl:intersectionOf ( moto:Staff
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty moto:lavoraPer ;
+                                                         owl:someValuesFrom moto:Circuito
+                                                       ]
+                                                     ) ;
+                                  rdf:type owl:Class
+                                ] ;
+            rdfs:subClassOf moto:Staff ;
+            rdfs:comment "A staff member working for a circuit"@en ,
+                         "Un membro dello staff che lavora per un circuito"@it ;
+            rdfs:label "Stuart"@en ,
+                       "Stuart"@it .
+
+
+###  http://www.example.com/Motology#Team
+moto:Team rdf:type owl:Class ;
+          rdfs:comment "A team consists of participants competing together"@en ,
+                       "Un team è composto da partecipanti che competono insieme"@it ;
+          rdfs:label "Team"@en ,
+                     "Team"@it .
+
+
+###  http://www.example.com/Motology#TeamManager
+moto:TeamManager rdf:type owl:Class ;
+                 rdfs:subClassOf moto:TeamStaff ;
+                 rdfs:comment "A team manager is responsible for managing the team"@en ,
+                              "Un team manager è responsabile della gestione del team"@it ;
+                 rdfs:label "Team Manager"@en ,
+                            "Team Manager"@it .
+
+
+###  http://www.example.com/Motology#TeamStaff
+moto:TeamStaff rdf:type owl:Class ;
+               rdfs:subClassOf moto:Staff ;
+               rdfs:comment "Membri dello staff che lavorano per un team"@it ,
+                            "Staff members working for a team"@en ;
+               rdfs:label "Staff del Team"@it ,
+                          "Team Staff"@en .
+
+
+###  http://xmlns.com/foaf/0.1/Person
+<http://xmlns.com/foaf/0.1/Person> rdf:type owl:Class ;
+                                   rdfs:comment "A person is a human being"@en ,
+                                                "Una persona è un essere umano"@it ;
+                                   rdfs:label "Person"@en ,
+                                              "Persona"@it .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.example.com/Motology#AEspargaro
+moto:AEspargaro rdf:type owl:NamedIndividual ,
+                         moto:Pilota ;
+                moto:natoInCittà moto:Gabicce ;
+                moto:pilotaDelTeam moto:Honda ;
+                moto:haNomePersona "Aleix Espargaro" ;
+                moto:haNumero 44 .
+
+
+###  http://www.example.com/Motology#Almada
+moto:Almada rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Aprilia
+moto:Aprilia rdf:type owl:NamedIndividual ,
+                      moto:Team ;
+             moto:haNome "Aprilia Racing" .
+
+
+###  http://www.example.com/Motology#Assen
+moto:Assen rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Austin
+moto:Austin rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Austria
+moto:Austria rdf:type owl:NamedIndividual ,
+                      moto:Nazione ;
+             moto:haNome "Austria" .
+
+
+###  http://www.example.com/Motology#Bagnaia
+moto:Bagnaia rdf:type owl:NamedIndividual ,
+                      moto:Pilota ;
+             moto:natoInCittà moto:Torino ;
+             moto:pilotaDelTeam moto:DucatiCorse ;
+             moto:haNomePersona "Francesco Bagnaia" ;
+             moto:haNumero 63 .
+
+
+###  http://www.example.com/Motology#Barcellona
+moto:Barcellona rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Bastianini
+moto:Bastianini rdf:type owl:NamedIndividual ,
+                         moto:Pilota ;
+                moto:natoInCittà moto:Roma ;
+                moto:pilotaDelTeam moto:Gresini ;
+                moto:haNomePersona "Enea Bastianini" ;
+                moto:haNumero 23 .
+
+
+###  http://www.example.com/Motology#Bezzecchi
+moto:Bezzecchi rdf:type owl:NamedIndividual ,
+                        moto:Pilota ;
+               moto:guidaMoto moto:MB72 ;
+               moto:natoInCittà moto:Rimini ;
+               moto:pilotaDelTeam moto:VR46 ;
+               moto:haNomePersona "Marco Bezzecchi" ;
+               moto:haNumero 72 .
+
+
+###  http://www.example.com/Motology#Binder
+moto:Binder rdf:type owl:NamedIndividual ,
+                     moto:Pilota ;
+            moto:natoInCittà moto:Potchefstroom ;
+            moto:pilotaDelTeam moto:KTM ;
+            moto:haNomePersona "Brad Binder" ;
+            moto:haNumero 33 .
+
+
+###  http://www.example.com/Motology#Brno
+moto:Brno rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#CH_1_Bas
+moto:CH_1_Bas rdf:type owl:NamedIndividual ,
+                       moto:PosizionamentoCampionato ;
+              moto:inClassificaDi moto:GP21 ;
+              moto:piazzamentoDi moto:Bastianini ;
+              moto:haPosizioneFinale 1 ;
+              moto:haPunti 60 .
+
+
+###  http://www.example.com/Motology#CH_1_Bez
+moto:CH_1_Bez rdf:type owl:NamedIndividual ,
+                       moto:PosizionamentoCampionato ;
+              moto:inClassificaDi moto:GP21 ;
+              moto:piazzamentoDi moto:Bezzecchi ;
+              moto:haPosizioneFinale 2 ;
+              moto:haPunti 40 .
+
+
+###  http://www.example.com/Motology#CH_1_Costr_Ducati
+moto:CH_1_Costr_Ducati rdf:type owl:NamedIndividual ,
+                                moto:PosizionamentoCampionato ;
+                       moto:inClassificaDi moto:GP23 ;
+                       moto:posizionamentoDiCostruttore moto:Ducati ;
+                       moto:haPosizioneFinale 2 ;
+                       moto:haPunti 30 .
+
+
+###  http://www.example.com/Motology#CH_1_Costr_KTM
+moto:CH_1_Costr_KTM rdf:type owl:NamedIndividual ,
+                             moto:PosizionamentoCampionato ;
+                    moto:inClassificaDi moto:GP23 ;
+                    moto:posizionamentoDiCostruttore moto:KTM ;
+                    moto:haPosizioneFinale 1 ;
+                    moto:haPunti 70 .
+
+
+###  http://www.example.com/Motology#CH_1_Ros
+moto:CH_1_Ros rdf:type owl:NamedIndividual ,
+                       moto:PosizionamentoCampionato ;
+              moto:inClassificaDi moto:M321 ;
+              moto:piazzamentoDi moto:Rossi ;
+              moto:haPosizioneFinale 1 ;
+              moto:haPunti 60 .
+
+
+###  http://www.example.com/Motology#CH_2_Bas
+moto:CH_2_Bas rdf:type owl:NamedIndividual ,
+                       moto:PosizionamentoCampionato ;
+              moto:inClassificaDi moto:GP22 ;
+              moto:piazzamentoDi moto:Bastianini ;
+              moto:haPosizioneFinale 2 ;
+              moto:haPunti 30 .
+
+
+###  http://www.example.com/Motology#CH_2_Bez
+moto:CH_2_Bez rdf:type owl:NamedIndividual ,
+                       moto:PosizionamentoCampionato ;
+              moto:inClassificaDi moto:GP22 ;
+              moto:piazzamentoDi moto:Bezzecchi ;
+              moto:haPosizioneFinale 1 ;
+              moto:haPunti 45 .
+
+
+###  http://www.example.com/Motology#CH_2_Ros
+moto:CH_2_Ros rdf:type owl:NamedIndividual ,
+                       moto:PosizionamentoCampionato ;
+              moto:inClassificaDi moto:M222 ;
+              moto:piazzamentoDi moto:Rossi ;
+              moto:haPosizioneFinale 1 ;
+              moto:haPunti 60 .
+
+
+###  http://www.example.com/Motology#CH_3_Bas
+moto:CH_3_Bas rdf:type owl:NamedIndividual ,
+                       moto:PosizionamentoCampionato ;
+              moto:inClassificaDi moto:M323 ;
+              moto:piazzamentoDi moto:Bastianini ;
+              moto:haPosizioneFinale 2 ;
+              moto:haPunti 30 .
+
+
+###  http://www.example.com/Motology#CH_3_Bez
+moto:CH_3_Bez rdf:type owl:NamedIndividual ,
+                       moto:PosizionamentoCampionato ;
+              moto:inClassificaDi moto:M323 ;
+              moto:piazzamentoDi moto:Bezzecchi ;
+              moto:haPosizioneFinale 1 ;
+              moto:haPunti 45 .
+
+
+###  http://www.example.com/Motology#CH_3_Ros
+moto:CH_3_Ros rdf:type owl:NamedIndividual ,
+                       moto:PosizionamentoCampionato ;
+              moto:inClassificaDi moto:GP23 ;
+              moto:piazzamentoDi moto:Rossi ;
+              moto:haPosizioneFinale 1 ;
+              moto:haPunti 60 .
+
+
+###  http://www.example.com/Motology#Cannes
+moto:Cannes rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Castrol
+moto:Castrol rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Cervera
+moto:Cervera rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Cesena
+moto:Cesena rdf:type owl:NamedIndividual ;
+            moto:haNazione moto:Italia .
+
+
+###  http://www.example.com/Motology#Chiba
+moto:Chiba rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#CircuitoAssen
+moto:CircuitoAssen rdf:type owl:NamedIndividual ,
+                            moto:Circuito ;
+                   moto:situatoInCittà moto:Assen ;
+                   moto:haLunghezza 4545 ;
+                   moto:haNome "TT Circuit Assen" .
+
+
+###  http://www.example.com/Motology#CircuitoAustin
+moto:CircuitoAustin rdf:type owl:NamedIndividual ,
+                             moto:Circuito ;
+                    moto:circuitoSponsorizzatoDa moto:RedBull ;
+                    moto:situatoInCittà moto:Austin ;
+                    moto:haLunghezza 5513 ;
+                    moto:haNome "Circuit of the Americas" .
+
+
+###  http://www.example.com/Motology#CircuitoBarcelona
+moto:CircuitoBarcelona rdf:type owl:NamedIndividual ,
+                                moto:Circuito ;
+                       moto:situatoInCittà moto:Montmelo ;
+                       moto:haLunghezza 4727 ;
+                       moto:haNome "Circuit de Barcelona-Catalunya" .
+
+
+###  http://www.example.com/Motology#CircuitoBrno
+moto:CircuitoBrno rdf:type owl:NamedIndividual ,
+                           moto:Circuito ;
+                  moto:situatoInCittà moto:Brno ;
+                  moto:haLunghezza 5403 ;
+                  moto:haNome "Masaryk Circuit" .
+
+
+###  http://www.example.com/Motology#CircuitoJerez
+moto:CircuitoJerez rdf:type owl:NamedIndividual ,
+                            moto:Circuito ;
+                   moto:situatoInCittà moto:Jerez ;
+                   moto:haLunghezza 4423 ;
+                   moto:haNome "Circuito di Jerez de la Frontera" .
+
+
+###  http://www.example.com/Motology#CircuitoMisano
+moto:CircuitoMisano rdf:type owl:NamedIndividual ,
+                             moto:Circuito ;
+                    moto:circuitoSponsorizzatoDa moto:RedBull ;
+                    moto:haNazione moto:SanMarino ;
+                    moto:situatoInCittà moto:Misano ;
+                    moto:haLunghezza 4226 ;
+                    moto:haNome "Misano World Circuit Marco Simoncelli" ;
+                    moto:haTracciato "https://commons.wikimedia.org/wiki/File:Misano_World_Circuit.svg#/media/File:Misano_World_Circuit.svg"^^xsd:anyURI .
+
+
+###  http://www.example.com/Motology#CircuitoMotegi
+moto:CircuitoMotegi rdf:type owl:NamedIndividual ,
+                             moto:Circuito ;
+                    moto:haNazione moto:Giappone ;
+                    moto:situatoInCittà moto:Motegi ;
+                    moto:haLunghezza 4801 ;
+                    moto:haNome "Twin Ring Motegi" .
+
+
+###  http://www.example.com/Motology#CircuitoMugello
+moto:CircuitoMugello rdf:type owl:NamedIndividual ,
+                              moto:Circuito ;
+                     moto:circuitoSponsorizzatoDa moto:Oakley ;
+                     moto:situatoInCittà moto:ScarperiaSanPiero ;
+                     moto:haLunghezza 5245 ;
+                     moto:haNome "Mugello Circuit" ;
+                     moto:haTracciato "https://commons.wikimedia.org/wiki/File:Mugello_Racing_Circuit_track_map_15_turns.svg#/media/File:Mugello_Racing_Circuit_track_map_15_turns.svg"^^xsd:anyURI .
+
+
+###  http://www.example.com/Motology#CircuitoPhillipIsland
+moto:CircuitoPhillipIsland rdf:type owl:NamedIndividual ,
+                                    moto:Circuito ;
+                           moto:situatoInCittà moto:PhillipIsland ;
+                           moto:haLunghezza 4448 ;
+                           moto:haNome "Phillip Island Grand Prix Circuit" .
+
+
+###  http://www.example.com/Motology#CircuitoSachsenring
+moto:CircuitoSachsenring rdf:type owl:NamedIndividual ,
+                                  moto:Circuito ;
+                         moto:situatoInCittà moto:HohensteinErnstthal ;
+                         moto:haLunghezza 3671 ;
+                         moto:haNome "Sachsenring" .
+
+
+###  http://www.example.com/Motology#CircuitoSepang
+moto:CircuitoSepang rdf:type owl:NamedIndividual ,
+                             moto:Circuito ;
+                    moto:situatoInCittà moto:Sepang ;
+                    moto:haLunghezza 5543 ;
+                    moto:haNome "Sepang International Circuit" .
+
+
+###  http://www.example.com/Motology#CircuitoSilverstone
+moto:CircuitoSilverstone rdf:type owl:NamedIndividual ,
+                                  moto:Circuito ;
+                         moto:circuitoSponsorizzatoDa moto:GoPro ;
+                         moto:situatoInCittà moto:Silverstone ;
+                         moto:haLunghezza 5900 ;
+                         moto:haNome "Silverstone Circuit" .
+
+
+###  http://www.example.com/Motology#CircuitoValencia
+moto:CircuitoValencia rdf:type owl:NamedIndividual ,
+                               moto:Circuito ;
+                      moto:situatoInCittà moto:Valencia ;
+                      moto:haLunghezza 4005 ;
+                      moto:haNome "Circuit Ricardo Tormo" .
+
+
+###  http://www.example.com/Motology#CrabCorp
+moto:CrabCorp rdf:type owl:NamedIndividual ,
+                       moto:Team .
+
+
+###  http://www.example.com/Motology#CryptoDATA
+moto:CryptoDATA rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Ducati
+moto:Ducati rdf:type owl:NamedIndividual ,
+                     moto:Costruttore ;
+            moto:haNazione moto:Italia ;
+            moto:haNome "Ducati" .
+
+
+###  http://www.example.com/Motology#DucatiCorse
+moto:DucatiCorse rdf:type owl:NamedIndividual ,
+                          moto:Team ;
+                 moto:teamSponsorizzatoDa moto:Lenovo ;
+                 moto:haNome "Ducati Lenovo Team" .
+
+
+###  http://www.example.com/Motology#EB23
+moto:EB23 rdf:type owl:NamedIndividual ,
+                   moto:Moto ;
+          moto:guidataDa moto:Bastianini .
+
+
+###  http://www.example.com/Motology#FP1_1
+moto:FP1_1 rdf:type owl:NamedIndividual ,
+                    moto:FP1 ;
+           moto:proveInGP moto:GP-IT-21 .
+
+
+###  http://www.example.com/Motology#FP1_10
+moto:FP1_10 rdf:type owl:NamedIndividual ,
+                     moto:FP1 ;
+            moto:proveInGP moto:GP-SM-22 .
+
+
+###  http://www.example.com/Motology#FP1_11
+moto:FP1_11 rdf:type owl:NamedIndividual ,
+                     moto:FP1 ;
+            moto:proveInGP moto:M2-SM-22 .
+
+
+###  http://www.example.com/Motology#FP1_12
+moto:FP1_12 rdf:type owl:NamedIndividual ,
+                     moto:FP1 ;
+            moto:proveInGP moto:M3-SM-22 .
+
+
+###  http://www.example.com/Motology#FP1_13
+moto:FP1_13 rdf:type owl:NamedIndividual ,
+                     moto:FP1 ;
+            moto:proveInGP moto:GP-IT-23 .
+
+
+###  http://www.example.com/Motology#FP1_14
+moto:FP1_14 rdf:type owl:NamedIndividual ,
+                     moto:FP1 ;
+            moto:proveInGP moto:M2-IT-23 .
+
+
+###  http://www.example.com/Motology#FP1_15
+moto:FP1_15 rdf:type owl:NamedIndividual ,
+                     moto:FP1 ;
+            moto:proveInGP moto:M3-IT-23 .
+
+
+###  http://www.example.com/Motology#FP1_16
+moto:FP1_16 rdf:type owl:NamedIndividual ,
+                     moto:FP1 ;
+            moto:proveInGP moto:GP-SM-23 .
+
+
+###  http://www.example.com/Motology#FP1_17
+moto:FP1_17 rdf:type owl:NamedIndividual ,
+                     moto:FP1 ;
+            moto:proveInGP moto:M2-SM-23 .
+
+
+###  http://www.example.com/Motology#FP1_18
+moto:FP1_18 rdf:type owl:NamedIndividual ,
+                     moto:FP1 ;
+            moto:proveInGP moto:M3-SM-23 .
+
+
+###  http://www.example.com/Motology#FP1_2
+moto:FP1_2 rdf:type owl:NamedIndividual ,
+                    moto:FP1 ;
+           moto:proveInGP moto:M2-IT-21 .
+
+
+###  http://www.example.com/Motology#FP1_3
+moto:FP1_3 rdf:type owl:NamedIndividual ,
+                    moto:FP1 ;
+           moto:proveInGP moto:M3-IT-21 .
+
+
+###  http://www.example.com/Motology#FP1_4
+moto:FP1_4 rdf:type owl:NamedIndividual ,
+                    moto:FP1 ;
+           moto:proveInGP moto:GP-SM-21 .
+
+
+###  http://www.example.com/Motology#FP1_5
+moto:FP1_5 rdf:type owl:NamedIndividual ,
+                    moto:FP1 ;
+           moto:proveInGP moto:M2-SM-21 .
+
+
+###  http://www.example.com/Motology#FP1_6
+moto:FP1_6 rdf:type owl:NamedIndividual ,
+                    moto:FP1 ;
+           moto:proveInGP moto:M3-SM-21 .
+
+
+###  http://www.example.com/Motology#FP1_7
+moto:FP1_7 rdf:type owl:NamedIndividual ,
+                    moto:FP1 ;
+           moto:proveInGP moto:GP-IT-22 .
+
+
+###  http://www.example.com/Motology#FP1_8
+moto:FP1_8 rdf:type owl:NamedIndividual ,
+                    moto:FP1 ;
+           moto:proveInGP moto:M2-IT-22 .
+
+
+###  http://www.example.com/Motology#FP1_9
+moto:FP1_9 rdf:type owl:NamedIndividual ,
+                    moto:FP1 ;
+           moto:proveInGP moto:M3-IT-22 .
+
+
+###  http://www.example.com/Motology#FP2_1
+moto:FP2_1 rdf:type owl:NamedIndividual ,
+                    moto:FP2 ;
+           moto:proveInGP moto:GP-IT-21 .
+
+
+###  http://www.example.com/Motology#FP2_10
+moto:FP2_10 rdf:type owl:NamedIndividual ,
+                     moto:FP2 ;
+            moto:proveInGP moto:GP-SM-22 .
+
+
+###  http://www.example.com/Motology#FP2_11
+moto:FP2_11 rdf:type owl:NamedIndividual ,
+                     moto:FP2 ;
+            moto:proveInGP moto:M2-SM-22 .
+
+
+###  http://www.example.com/Motology#FP2_12
+moto:FP2_12 rdf:type owl:NamedIndividual ,
+                     moto:FP2 ;
+            moto:proveInGP moto:M3-SM-22 .
+
+
+###  http://www.example.com/Motology#FP2_13
+moto:FP2_13 rdf:type owl:NamedIndividual ,
+                     moto:FP2 ;
+            moto:proveInGP moto:GP-IT-23 .
+
+
+###  http://www.example.com/Motology#FP2_14
+moto:FP2_14 rdf:type owl:NamedIndividual ,
+                     moto:FP2 ;
+            moto:proveInGP moto:M2-IT-23 .
+
+
+###  http://www.example.com/Motology#FP2_15
+moto:FP2_15 rdf:type owl:NamedIndividual ,
+                     moto:FP2 ;
+            moto:proveInGP moto:M3-IT-23 .
+
+
+###  http://www.example.com/Motology#FP2_16
+moto:FP2_16 rdf:type owl:NamedIndividual ,
+                     moto:FP2 ;
+            moto:proveInGP moto:GP-SM-23 .
+
+
+###  http://www.example.com/Motology#FP2_17
+moto:FP2_17 rdf:type owl:NamedIndividual ,
+                     moto:FP2 ;
+            moto:proveInGP moto:M2-SM-23 .
+
+
+###  http://www.example.com/Motology#FP2_18
+moto:FP2_18 rdf:type owl:NamedIndividual ,
+                     moto:FP2 ;
+            moto:proveInGP moto:M3-SM-23 .
+
+
+###  http://www.example.com/Motology#FP2_2
+moto:FP2_2 rdf:type owl:NamedIndividual ,
+                    moto:FP2 ;
+           moto:proveInGP moto:M2-IT-21 .
+
+
+###  http://www.example.com/Motology#FP2_3
+moto:FP2_3 rdf:type owl:NamedIndividual ,
+                    moto:FP2 ;
+           moto:proveInGP moto:M3-IT-21 .
+
+
+###  http://www.example.com/Motology#FP2_4
+moto:FP2_4 rdf:type owl:NamedIndividual ,
+                    moto:FP2 ;
+           moto:proveInGP moto:GP-SM-21 .
+
+
+###  http://www.example.com/Motology#FP2_5
+moto:FP2_5 rdf:type owl:NamedIndividual ,
+                    moto:FP2 ;
+           moto:proveInGP moto:M2-SM-21 .
+
+
+###  http://www.example.com/Motology#FP2_6
+moto:FP2_6 rdf:type owl:NamedIndividual ,
+                    moto:FP2 ;
+           moto:proveInGP moto:M3-SM-21 .
+
+
+###  http://www.example.com/Motology#FP2_7
+moto:FP2_7 rdf:type owl:NamedIndividual ,
+                    moto:FP2 ;
+           moto:proveInGP moto:GP-IT-22 .
+
+
+###  http://www.example.com/Motology#FP2_8
+moto:FP2_8 rdf:type owl:NamedIndividual ,
+                    moto:FP2 ;
+           moto:proveInGP moto:M2-IT-22 .
+
+
+###  http://www.example.com/Motology#FP2_9
+moto:FP2_9 rdf:type owl:NamedIndividual ,
+                    moto:FP2 ;
+           moto:proveInGP moto:M3-IT-22 .
+
+
+###  http://www.example.com/Motology#FederalOIL
+moto:FederalOIL rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Figueres
+moto:Figueres rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Flamigni
+moto:Flamigni rdf:type owl:NamedIndividual ,
+                       moto:Capotecnico ;
+              moto:seguePilota moto:Bezzecchi ;
+              moto:haNomePersona "Matteo Flamigni" .
+
+
+###  http://www.example.com/Motology#GASGAS
+moto:GASGAS rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#GP-IT-21
+moto:GP-IT-21 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:GP21 ;
+              moto:svoltoPresso moto:CircuitoMugello .
+
+
+###  http://www.example.com/Motology#GP-IT-22
+moto:GP-IT-22 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:GP22 ;
+              moto:svoltoPresso moto:CircuitoMugello .
+
+
+###  http://www.example.com/Motology#GP-IT-23
+moto:GP-IT-23 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:GP23 ;
+              moto:svoltoPresso moto:CircuitoMugello .
+
+
+###  http://www.example.com/Motology#GP-SM-21
+moto:GP-SM-21 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:GP21 ;
+              moto:svoltoPresso moto:CircuitoMisano .
+
+
+###  http://www.example.com/Motology#GP-SM-22
+moto:GP-SM-22 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:GP22 ;
+              moto:svoltoPresso moto:CircuitoMisano .
+
+
+###  http://www.example.com/Motology#GP-SM-23
+moto:GP-SM-23 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:GP23 ;
+              moto:svoltoPresso moto:CircuitoMisano .
+
+
+###  http://www.example.com/Motology#GP21
+moto:GP21 rdf:type owl:NamedIndividual ,
+                   moto:MotoGP ;
+          moto:haAnno 2021 .
+
+
+###  http://www.example.com/Motology#GP22
+moto:GP22 rdf:type owl:NamedIndividual ,
+                   moto:MotoGP ;
+          moto:haAnno 2022 .
+
+
+###  http://www.example.com/Motology#GP23
+moto:GP23 rdf:type owl:NamedIndividual ,
+                   moto:MotoGP ;
+          moto:haAnno 2023 .
+
+
+###  http://www.example.com/Motology#G_1_Bas
+moto:G_1_Bas rdf:type owl:NamedIndividual ,
+                      moto:PosizionamentoGara ;
+             moto:inClassificaDi moto:Gara_1 ;
+             moto:piazzamentoDi moto:Bastianini ;
+             moto:haGap "+0.146" ;
+             moto:haPosizioneFinale 2 ;
+             moto:haPunti 20 .
+
+
+###  http://www.example.com/Motology#G_1_Bez
+moto:G_1_Bez rdf:type owl:NamedIndividual ,
+                      moto:PosizionamentoGara ;
+             moto:inClassificaDi moto:Gara_1 ;
+             moto:piazzamentoDi moto:Bezzecchi ;
+             moto:haGap "+0.000" ;
+             moto:haPosizioneFinale 1 ;
+             moto:haPunti 25 .
+
+
+###  http://www.example.com/Motology#Gabicce
+moto:Gabicce rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Gara_1
+moto:Gara_1 rdf:type owl:NamedIndividual ,
+                     moto:Gara ;
+            moto:corsaInGP moto:GP-IT-21 .
+
+
+###  http://www.example.com/Motology#Gara_10
+moto:Gara_10 rdf:type owl:NamedIndividual ,
+                      moto:Gara ;
+             moto:corsaInGP moto:GP-SM-22 .
+
+
+###  http://www.example.com/Motology#Gara_11
+moto:Gara_11 rdf:type owl:NamedIndividual ,
+                      moto:Gara ;
+             moto:corsaInGP moto:M2-SM-22 .
+
+
+###  http://www.example.com/Motology#Gara_12
+moto:Gara_12 rdf:type owl:NamedIndividual ,
+                      moto:Gara ;
+             moto:corsaInGP moto:M3-SM-22 .
+
+
+###  http://www.example.com/Motology#Gara_13
+moto:Gara_13 rdf:type owl:NamedIndividual ,
+                      moto:Gara ;
+             moto:corsaInGP moto:GP-IT-23 .
+
+
+###  http://www.example.com/Motology#Gara_14
+moto:Gara_14 rdf:type owl:NamedIndividual ,
+                      moto:Gara ;
+             moto:corsaInGP moto:M2-IT-23 .
+
+
+###  http://www.example.com/Motology#Gara_15
+moto:Gara_15 rdf:type owl:NamedIndividual ,
+                      moto:Gara ;
+             moto:corsaInGP moto:M3-IT-23 .
+
+
+###  http://www.example.com/Motology#Gara_16
+moto:Gara_16 rdf:type owl:NamedIndividual ,
+                      moto:Gara ;
+             moto:corsaInGP moto:GP-SM-23 .
+
+
+###  http://www.example.com/Motology#Gara_17
+moto:Gara_17 rdf:type owl:NamedIndividual ,
+                      moto:Gara ;
+             moto:corsaInGP moto:M2-SM-23 .
+
+
+###  http://www.example.com/Motology#Gara_18
+moto:Gara_18 rdf:type owl:NamedIndividual ,
+                      moto:Gara ;
+             moto:corsaInGP moto:M3-SM-23 .
+
+
+###  http://www.example.com/Motology#Gara_2
+moto:Gara_2 rdf:type owl:NamedIndividual ,
+                     moto:Gara ;
+            moto:corsaInGP moto:M2-IT-21 .
+
+
+###  http://www.example.com/Motology#Gara_3
+moto:Gara_3 rdf:type owl:NamedIndividual ,
+                     moto:Gara ;
+            moto:corsaInGP moto:M3-IT-21 .
+
+
+###  http://www.example.com/Motology#Gara_4
+moto:Gara_4 rdf:type owl:NamedIndividual ,
+                     moto:Gara ;
+            moto:corsaInGP moto:GP-SM-21 .
+
+
+###  http://www.example.com/Motology#Gara_5
+moto:Gara_5 rdf:type owl:NamedIndividual ,
+                     moto:Gara ;
+            moto:corsaInGP moto:M2-SM-21 .
+
+
+###  http://www.example.com/Motology#Gara_6
+moto:Gara_6 rdf:type owl:NamedIndividual ,
+                     moto:Gara ;
+            moto:corsaInGP moto:M3-SM-21 .
+
+
+###  http://www.example.com/Motology#Gara_7
+moto:Gara_7 rdf:type owl:NamedIndividual ,
+                     moto:Gara ;
+            moto:corsaInGP moto:GP-IT-22 .
+
+
+###  http://www.example.com/Motology#Gara_8
+moto:Gara_8 rdf:type owl:NamedIndividual ,
+                     moto:Gara ;
+            moto:corsaInGP moto:M2-IT-22 .
+
+
+###  http://www.example.com/Motology#Gara_9
+moto:Gara_9 rdf:type owl:NamedIndividual ,
+                     moto:Gara ;
+            moto:corsaInGP moto:M3-IT-22 .
+
+
+###  http://www.example.com/Motology#Giappone
+moto:Giappone rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#GoPro
+moto:GoPro rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Granollers
+moto:Granollers rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Gresini
+moto:Gresini rdf:type owl:NamedIndividual ,
+                      moto:Team ;
+             moto:haCostruttoreDelTeam moto:Ducati ;
+             moto:teamSponsorizzatoDa moto:FederalOIL ;
+             moto:haNome "Gresini Racing MotoGP" .
+
+
+###  http://www.example.com/Motology#HohensteinErnstthal
+moto:HohensteinErnstthal rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Honda
+moto:Honda rdf:type owl:NamedIndividual ,
+                    moto:Team ;
+           moto:teamSponsorizzatoDa moto:Repsol ;
+           moto:haNome "Repsol Honda Team" .
+
+
+###  http://www.example.com/Motology#Italia
+moto:Italia rdf:type owl:NamedIndividual ,
+                     moto:Nazione ;
+            moto:haNome "Italia" .
+
+
+###  http://www.example.com/Motology#Jerez
+moto:Jerez rdf:type owl:NamedIndividual ,
+                    moto:Città ;
+           moto:haNazione moto:Spagna ;
+           moto:haNome "Jerez de la Frontera" .
+
+
+###  http://www.example.com/Motology#KTM
+moto:KTM rdf:type owl:NamedIndividual ,
+                  moto:Costruttore ,
+                  moto:Team ;
+         moto:haNazione moto:Austria ;
+         moto:teamSponsorizzatoDa moto:RedBull ;
+         moto:haNome "KTM" ,
+                     "Red Bull KTM Factory Racing" .
+
+
+###  http://www.example.com/Motology#LCR
+moto:LCR rdf:type owl:NamedIndividual ,
+                  moto:Team ;
+         moto:teamSponsorizzatoDa moto:Castrol ;
+         moto:haNome "LCR Honda" .
+
+
+###  http://www.example.com/Motology#LM10
+moto:LM10 rdf:type owl:NamedIndividual ,
+                   moto:Moto ;
+          moto:guidataDa moto:Marini ;
+          moto:haMotore moto:MT-D-1000 ;
+          moto:motoDelTeam moto:VR46 .
+
+
+###  http://www.example.com/Motology#Lecuona
+moto:Lecuona rdf:type owl:NamedIndividual ,
+                      moto:Pilota ;
+             moto:natoInCittà moto:Valencia ;
+             moto:pilotaDelTeam moto:Tech3 ;
+             moto:haNomePersona "Iker Lecuona" ;
+             moto:haNumero 27 .
+
+
+###  http://www.example.com/Motology#Lenovo
+moto:Lenovo rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#M2-IT-21
+moto:M2-IT-21 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:M221 ;
+              moto:svoltoPresso moto:CircuitoMugello .
+
+
+###  http://www.example.com/Motology#M2-IT-22
+moto:M2-IT-22 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:M222 ;
+              moto:svoltoPresso moto:CircuitoMugello .
+
+
+###  http://www.example.com/Motology#M2-IT-23
+moto:M2-IT-23 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:M223 ;
+              moto:svoltoPresso moto:CircuitoMugello .
+
+
+###  http://www.example.com/Motology#M2-SM-21
+moto:M2-SM-21 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:M221 ;
+              moto:svoltoPresso moto:CircuitoMisano .
+
+
+###  http://www.example.com/Motology#M2-SM-22
+moto:M2-SM-22 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:M222 ;
+              moto:svoltoPresso moto:CircuitoMisano .
+
+
+###  http://www.example.com/Motology#M2-SM-23
+moto:M2-SM-23 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:M223 ;
+              moto:svoltoPresso moto:CircuitoMisano .
+
+
+###  http://www.example.com/Motology#M221
+moto:M221 rdf:type owl:NamedIndividual ,
+                   moto:Moto2 ;
+          moto:haAnno 2021 .
+
+
+###  http://www.example.com/Motology#M222
+moto:M222 rdf:type owl:NamedIndividual ,
+                   moto:Moto2 ;
+          moto:haAnno 2022 .
+
+
+###  http://www.example.com/Motology#M223
+moto:M223 rdf:type owl:NamedIndividual ,
+                   moto:Moto2 ;
+          moto:haAnno 2023 .
+
+
+###  http://www.example.com/Motology#M3-IT-21
+moto:M3-IT-21 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:M321 ;
+              moto:svoltoPresso moto:CircuitoMugello .
+
+
+###  http://www.example.com/Motology#M3-IT-22
+moto:M3-IT-22 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:M322 ;
+              moto:svoltoPresso moto:CircuitoMugello .
+
+
+###  http://www.example.com/Motology#M3-IT-23
+moto:M3-IT-23 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:M323 ;
+              moto:svoltoPresso moto:CircuitoMugello .
+
+
+###  http://www.example.com/Motology#M3-SM-21
+moto:M3-SM-21 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:M321 ;
+              moto:svoltoPresso moto:CircuitoMisano .
+
+
+###  http://www.example.com/Motology#M3-SM-22
+moto:M3-SM-22 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:M322 ;
+              moto:svoltoPresso moto:CircuitoMisano .
+
+
+###  http://www.example.com/Motology#M3-SM-23
+moto:M3-SM-23 rdf:type owl:NamedIndividual ,
+                       moto:GranPremio ;
+              moto:svoltoInCampionato moto:M323 ;
+              moto:svoltoPresso moto:CircuitoMisano .
+
+
+###  http://www.example.com/Motology#M321
+moto:M321 rdf:type owl:NamedIndividual ,
+                   moto:Moto3 ;
+          moto:haAnno 2021 .
+
+
+###  http://www.example.com/Motology#M322
+moto:M322 rdf:type owl:NamedIndividual ,
+                   moto:Moto3 ;
+          moto:haAnno 2022 .
+
+
+###  http://www.example.com/Motology#M323
+moto:M323 rdf:type owl:NamedIndividual ,
+                   moto:Moto3 ;
+          moto:haAnno 2023 .
+
+
+###  http://www.example.com/Motology#MB72
+moto:MB72 rdf:type owl:NamedIndividual ,
+                   moto:Moto ;
+          moto:haMotore moto:MT-D-1000 .
+
+
+###  http://www.example.com/Motology#ME-D-2023
+moto:ME-D-2023 rdf:type owl:NamedIndividual ,
+                        moto:MotoreElettrico .
+
+
+###  http://www.example.com/Motology#ME21
+moto:ME21 rdf:type owl:NamedIndividual ,
+                   moto:MotoE ;
+          moto:haAnno 2021 .
+
+
+###  http://www.example.com/Motology#ME22
+moto:ME22 rdf:type owl:NamedIndividual ,
+                   moto:MotoE ;
+          moto:haAnno 2022 .
+
+
+###  http://www.example.com/Motology#ME23
+moto:ME23 rdf:type owl:NamedIndividual ,
+                   moto:MotoE ;
+          moto:haAnno 2023 .
+
+
+###  http://www.example.com/Motology#MT-D-1000
+moto:MT-D-1000 rdf:type owl:NamedIndividual ,
+                        moto:Motore ;
+               moto:haCilindrata 999 ;
+               moto:haCilindri 4 .
+
+
+###  http://www.example.com/Motology#MT-D-600
+moto:MT-D-600 rdf:type owl:NamedIndividual ,
+                       moto:Motore ;
+              moto:haCilindrata 599 .
+
+
+###  http://www.example.com/Motology#MT-K-600
+moto:MT-K-600 rdf:type owl:NamedIndividual ,
+                       moto:Motore ;
+              moto:haCilindrata 599 ;
+              moto:haCilindri 2 .
+
+
+###  http://www.example.com/Motology#Marini
+moto:Marini rdf:type owl:NamedIndividual ,
+                     moto:Pilota ;
+            moto:haCapotecnico moto:Munoz ;
+            moto:natoInCittà moto:Urbino ;
+            moto:haNomePersona "Luca Marini" ;
+            moto:haNumero 10 .
+
+
+###  http://www.example.com/Motology#Marsiglia
+moto:Marsiglia rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Martín
+moto:Martín rdf:type owl:NamedIndividual ,
+                     moto:Pilota ;
+            moto:natoInCittà moto:Marsiglia ;
+            moto:pilotaDelTeam moto:Pramac ;
+            moto:haNomePersona "Jorge Martín" ;
+            moto:haNumero 89 .
+
+
+###  http://www.example.com/Motology#Miller
+moto:Miller rdf:type owl:NamedIndividual ,
+                     moto:Pilota ;
+            moto:natoInCittà moto:Townsville ;
+            moto:pilotaDelTeam moto:DucatiCorse ;
+            moto:haNomePersona "Jack Miller" ;
+            moto:haNumero 43 .
+
+
+###  http://www.example.com/Motology#Mir
+moto:Mir rdf:type owl:NamedIndividual ,
+                  moto:Pilota ;
+         moto:natoInCittà moto:PalmaMallorca ;
+         moto:pilotaDelTeam moto:LCR ;
+         moto:haNomePersona "Joan Mir" ;
+         moto:haNumero 36 .
+
+
+###  http://www.example.com/Motology#Misano
+moto:Misano rdf:type owl:NamedIndividual ,
+                     moto:Città ;
+            moto:haNazione moto:Italia ;
+            moto:haNome "Misano" .
+
+
+###  http://www.example.com/Motology#Monster
+moto:Monster rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Montmelo
+moto:Montmelo rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Mooney
+moto:Mooney rdf:type owl:NamedIndividual ,
+                     moto:Sponsor ;
+            moto:haNome "Mooney" .
+
+
+###  http://www.example.com/Motology#Morbidelli
+moto:Morbidelli rdf:type owl:NamedIndividual ,
+                         moto:Pilota ;
+                moto:natoInCittà moto:Roma ;
+                moto:pilotaDelTeam moto:RNF ;
+                moto:haNomePersona "Franco Morbidelli" ;
+                moto:haNumero 21 .
+
+
+###  http://www.example.com/Motology#Motegi
+moto:Motegi rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Munoz
+moto:Munoz rdf:type owl:NamedIndividual ,
+                    moto:Capotecnico ;
+           moto:haNomePersona "David Munoz" .
+
+
+###  http://www.example.com/Motology#Márquez
+moto:Márquez rdf:type owl:NamedIndividual ,
+                      moto:Pilota ;
+             moto:natoInCittà moto:Cervera ;
+             moto:pilotaDelTeam moto:Honda ;
+             moto:haNomePersona "Marc Márquez" ;
+             moto:haNumero 93 .
+
+
+###  http://www.example.com/Motology#Nakagami
+moto:Nakagami rdf:type owl:NamedIndividual ,
+                       moto:Pilota ;
+              moto:natoInCittà moto:Chiba ;
+              moto:pilotaDelTeam moto:LCR ;
+              moto:haNomePersona "Takaaki Nakagami" ;
+              moto:haNumero 30 .
+
+
+###  http://www.example.com/Motology#Nieto
+moto:Nieto rdf:type owl:NamedIndividual ,
+                    moto:TeamManager ;
+           moto:dipendenteDelTeam moto:VR46 ;
+           moto:haNome "Pablo Nieto" .
+
+
+###  http://www.example.com/Motology#Nizza
+moto:Nizza rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Oakley
+moto:Oakley rdf:type owl:NamedIndividual ,
+                     moto:Sponsor ;
+            moto:haNome "Oakley" .
+
+
+###  http://www.example.com/Motology#Oliveira
+moto:Oliveira rdf:type owl:NamedIndividual ,
+                       moto:Pilota ;
+              moto:natoInCittà moto:Almada ;
+              moto:pilotaDelTeam moto:KTM ;
+              moto:haNomePersona "Miguel Oliveira" ;
+              moto:haNumero 88 .
+
+
+###  http://www.example.com/Motology#PEspargaro
+moto:PEspargaro rdf:type owl:NamedIndividual ,
+                         moto:Pilota ;
+                moto:natoInCittà moto:Granollers ;
+                moto:pilotaDelTeam moto:Aprilia ;
+                moto:haNomePersona "Pol Espargaro" ;
+                moto:haNumero 41 .
+
+
+###  http://www.example.com/Motology#PalmaMallorca
+moto:PalmaMallorca rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Petrucci
+moto:Petrucci rdf:type owl:NamedIndividual ,
+                       moto:Pilota ;
+              moto:natoInCittà moto:Terni ;
+              moto:pilotaDelTeam moto:Tech3 ;
+              moto:haNomePersona "Danilo Petrucci" ;
+              moto:haNumero 9 .
+
+
+###  http://www.example.com/Motology#PhillipIsland
+moto:PhillipIsland rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Portogallo
+moto:Portogallo rdf:type owl:NamedIndividual ,
+                         moto:Nazione ;
+                moto:haNome "Portogallo" .
+
+
+###  http://www.example.com/Motology#Potchefstroom
+moto:Potchefstroom rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Pramac
+moto:Pramac rdf:type owl:NamedIndividual ,
+                     moto:Team ;
+            moto:teamSponsorizzatoDa moto:Prima ;
+            moto:haNome "Prima Pramac Racing" .
+
+
+###  http://www.example.com/Motology#Prima
+moto:Prima rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Q1_1
+moto:Q1_1 rdf:type owl:NamedIndividual ,
+                   moto:Q1 ;
+          moto:corsaInGP moto:GP-IT-21 .
+
+
+###  http://www.example.com/Motology#Q1_10
+moto:Q1_10 rdf:type owl:NamedIndividual ,
+                    moto:Q1 ;
+           moto:corsaInGP moto:GP-SM-22 .
+
+
+###  http://www.example.com/Motology#Q1_11
+moto:Q1_11 rdf:type owl:NamedIndividual ,
+                    moto:Q1 ;
+           moto:corsaInGP moto:M2-SM-22 .
+
+
+###  http://www.example.com/Motology#Q1_12
+moto:Q1_12 rdf:type owl:NamedIndividual ,
+                    moto:Q1 ;
+           moto:corsaInGP moto:M3-SM-22 .
+
+
+###  http://www.example.com/Motology#Q1_13
+moto:Q1_13 rdf:type owl:NamedIndividual ,
+                    moto:Q1 ;
+           moto:corsaInGP moto:GP-IT-23 .
+
+
+###  http://www.example.com/Motology#Q1_14
+moto:Q1_14 rdf:type owl:NamedIndividual ,
+                    moto:Q1 ;
+           moto:corsaInGP moto:M2-IT-23 .
+
+
+###  http://www.example.com/Motology#Q1_15
+moto:Q1_15 rdf:type owl:NamedIndividual ,
+                    moto:Q1 ;
+           moto:corsaInGP moto:M3-IT-23 .
+
+
+###  http://www.example.com/Motology#Q1_16
+moto:Q1_16 rdf:type owl:NamedIndividual ,
+                    moto:Q1 ;
+           moto:corsaInGP moto:GP-SM-23 .
+
+
+###  http://www.example.com/Motology#Q1_17
+moto:Q1_17 rdf:type owl:NamedIndividual ,
+                    moto:Q1 ;
+           moto:corsaInGP moto:M2-SM-23 .
+
+
+###  http://www.example.com/Motology#Q1_18
+moto:Q1_18 rdf:type owl:NamedIndividual ,
+                    moto:Q1 ;
+           moto:corsaInGP moto:M3-SM-23 .
+
+
+###  http://www.example.com/Motology#Q1_2
+moto:Q1_2 rdf:type owl:NamedIndividual ,
+                   moto:Q1 ;
+          moto:corsaInGP moto:M2-IT-21 .
+
+
+###  http://www.example.com/Motology#Q1_3
+moto:Q1_3 rdf:type owl:NamedIndividual ,
+                   moto:Q1 ;
+          moto:corsaInGP moto:M3-IT-21 .
+
+
+###  http://www.example.com/Motology#Q1_4
+moto:Q1_4 rdf:type owl:NamedIndividual ,
+                   moto:Q1 ;
+          moto:corsaInGP moto:GP-SM-21 .
+
+
+###  http://www.example.com/Motology#Q1_5
+moto:Q1_5 rdf:type owl:NamedIndividual ,
+                   moto:Q1 ;
+          moto:corsaInGP moto:M2-SM-21 .
+
+
+###  http://www.example.com/Motology#Q1_6
+moto:Q1_6 rdf:type owl:NamedIndividual ,
+                   moto:Q1 ;
+          moto:corsaInGP moto:M3-SM-21 .
+
+
+###  http://www.example.com/Motology#Q1_7
+moto:Q1_7 rdf:type owl:NamedIndividual ,
+                   moto:Q1 ;
+          moto:corsaInGP moto:GP-IT-22 .
+
+
+###  http://www.example.com/Motology#Q1_8
+moto:Q1_8 rdf:type owl:NamedIndividual ,
+                   moto:Q1 ;
+          moto:corsaInGP moto:M2-IT-22 .
+
+
+###  http://www.example.com/Motology#Q1_9
+moto:Q1_9 rdf:type owl:NamedIndividual ,
+                   moto:Q1 ;
+          moto:corsaInGP moto:M3-IT-22 .
+
+
+###  http://www.example.com/Motology#Q2_1
+moto:Q2_1 rdf:type owl:NamedIndividual ,
+                   moto:Q2 ;
+          moto:corsaInGP moto:GP-IT-21 .
+
+
+###  http://www.example.com/Motology#Q2_10
+moto:Q2_10 rdf:type owl:NamedIndividual ,
+                    moto:Q2 ;
+           moto:corsaInGP moto:GP-SM-22 .
+
+
+###  http://www.example.com/Motology#Q2_11
+moto:Q2_11 rdf:type owl:NamedIndividual ,
+                    moto:Q2 ;
+           moto:corsaInGP moto:M2-SM-22 .
+
+
+###  http://www.example.com/Motology#Q2_12
+moto:Q2_12 rdf:type owl:NamedIndividual ,
+                    moto:Q2 ;
+           moto:corsaInGP moto:M3-SM-22 .
+
+
+###  http://www.example.com/Motology#Q2_13
+moto:Q2_13 rdf:type owl:NamedIndividual ,
+                    moto:Q2 ;
+           moto:corsaInGP moto:GP-IT-23 .
+
+
+###  http://www.example.com/Motology#Q2_14
+moto:Q2_14 rdf:type owl:NamedIndividual ,
+                    moto:Q2 ;
+           moto:corsaInGP moto:M2-IT-23 .
+
+
+###  http://www.example.com/Motology#Q2_15
+moto:Q2_15 rdf:type owl:NamedIndividual ,
+                    moto:Q2 ;
+           moto:corsaInGP moto:M3-IT-23 .
+
+
+###  http://www.example.com/Motology#Q2_16
+moto:Q2_16 rdf:type owl:NamedIndividual ,
+                    moto:Q2 ;
+           moto:corsaInGP moto:GP-SM-23 .
+
+
+###  http://www.example.com/Motology#Q2_17
+moto:Q2_17 rdf:type owl:NamedIndividual ,
+                    moto:Q2 ;
+           moto:corsaInGP moto:M2-SM-23 .
+
+
+###  http://www.example.com/Motology#Q2_18
+moto:Q2_18 rdf:type owl:NamedIndividual ,
+                    moto:Q2 ;
+           moto:corsaInGP moto:M3-SM-23 .
+
+
+###  http://www.example.com/Motology#Q2_2
+moto:Q2_2 rdf:type owl:NamedIndividual ,
+                   moto:Q2 ;
+          moto:corsaInGP moto:M2-IT-21 .
+
+
+###  http://www.example.com/Motology#Q2_3
+moto:Q2_3 rdf:type owl:NamedIndividual ,
+                   moto:Q2 ;
+          moto:corsaInGP moto:M3-IT-21 .
+
+
+###  http://www.example.com/Motology#Q2_4
+moto:Q2_4 rdf:type owl:NamedIndividual ,
+                   moto:Q2 ;
+          moto:corsaInGP moto:GP-SM-21 .
+
+
+###  http://www.example.com/Motology#Q2_5
+moto:Q2_5 rdf:type owl:NamedIndividual ,
+                   moto:Q2 ;
+          moto:corsaInGP moto:M2-SM-21 .
+
+
+###  http://www.example.com/Motology#Q2_6
+moto:Q2_6 rdf:type owl:NamedIndividual ,
+                   moto:Q2 ;
+          moto:corsaInGP moto:M3-SM-21 .
+
+
+###  http://www.example.com/Motology#Q2_7
+moto:Q2_7 rdf:type owl:NamedIndividual ,
+                   moto:Q2 ;
+          moto:corsaInGP moto:GP-IT-22 .
+
+
+###  http://www.example.com/Motology#Q2_8
+moto:Q2_8 rdf:type owl:NamedIndividual ,
+                   moto:Q2 ;
+          moto:corsaInGP moto:M2-IT-22 .
+
+
+###  http://www.example.com/Motology#Q2_9
+moto:Q2_9 rdf:type owl:NamedIndividual ,
+                   moto:Q2 ;
+          moto:corsaInGP moto:M3-IT-22 .
+
+
+###  http://www.example.com/Motology#QT_1_Bas
+moto:QT_1_Bas rdf:type owl:NamedIndividual ,
+                       moto:MigliorTempo ;
+              moto:haTempo "1:69:48.897" .
+
+
+###  http://www.example.com/Motology#QT_1_Bez
+moto:QT_1_Bez rdf:type owl:NamedIndividual ,
+                       moto:MigliorTempo ;
+              moto:haTempo "1:69:74.475" .
+
+
+###  http://www.example.com/Motology#Q_1_Bas
+moto:Q_1_Bas rdf:type owl:NamedIndividual ,
+                      moto:PosizionamentoQualifiche ;
+             moto:inClassificaDi moto:Q1_1 ;
+             moto:piazzamentoDi moto:Bastianini ;
+             moto:qualificatoConTempo moto:QT_1_Bas ;
+             moto:haPosizioneFinale 1 .
+
+
+###  http://www.example.com/Motology#Q_1_Bez
+moto:Q_1_Bez rdf:type owl:NamedIndividual ,
+                      moto:PosizionamentoQualifiche ;
+             moto:inClassificaDi moto:Q1_1 ;
+             moto:piazzamentoDi moto:Bezzecchi ;
+             moto:qualificatoConTempo moto:QT_1_Bez ;
+             moto:haPosizioneFinale 2 .
+
+
+###  http://www.example.com/Motology#Quartararo
+moto:Quartararo rdf:type owl:NamedIndividual ,
+                         moto:Pilota ;
+                moto:natoInCittà moto:Nizza ;
+                moto:pilotaDelTeam moto:Yamaha ;
+                moto:haNomePersona "Fabio Quartararo" ;
+                moto:haNumero 20 .
+
+
+###  http://www.example.com/Motology#RNF
+moto:RNF rdf:type owl:NamedIndividual ,
+                  moto:Team ;
+         moto:teamSponsorizzatoDa moto:CryptoDATA ;
+         moto:haNome "CryptoDATA RNF MotoGP Team" .
+
+
+###  http://www.example.com/Motology#RedBull
+moto:RedBull rdf:type owl:NamedIndividual ,
+                      moto:Sponsor ;
+             moto:haNome "RedBull" .
+
+
+###  http://www.example.com/Motology#Repsol
+moto:Repsol rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Rimini
+moto:Rimini rdf:type owl:NamedIndividual ,
+                     moto:Città ;
+            moto:haNazione moto:Italia ;
+            moto:haNome "Rimini" .
+
+
+###  http://www.example.com/Motology#Rins
+moto:Rins rdf:type owl:NamedIndividual ,
+                   moto:Pilota ;
+          moto:natoInCittà moto:Barcellona ;
+          moto:pilotaDelTeam moto:Pramac ;
+          moto:haNomePersona "Álex Rins" ;
+          moto:haNumero 42 .
+
+
+###  http://www.example.com/Motology#Roma
+moto:Roma rdf:type owl:NamedIndividual ;
+          moto:haNazione moto:Italia .
+
+
+###  http://www.example.com/Motology#Rossi
+moto:Rossi rdf:type owl:NamedIndividual ,
+                    moto:Pilota ;
+           moto:natoInCittà moto:Urbino ;
+           moto:pilotaDelTeam moto:RNF ;
+           moto:haNomePersona "Valentino Rossi" ;
+           moto:haNumero 46 .
+
+
+###  http://www.example.com/Motology#SanMarino
+moto:SanMarino rdf:type owl:NamedIndividual ,
+                        moto:Nazione ;
+               moto:haNome "SanMarino" .
+
+
+###  http://www.example.com/Motology#Savadori
+moto:Savadori rdf:type owl:NamedIndividual ,
+                       moto:Pilota ;
+              moto:natoInCittà moto:Cesena ;
+              moto:pilotaDelTeam moto:Aprilia ;
+              moto:haNomePersona "Lorenzo Savadori" ;
+              moto:haNumero 32 .
+
+
+###  http://www.example.com/Motology#ScarperiaSanPiero
+moto:ScarperiaSanPiero rdf:type owl:NamedIndividual ,
+                                moto:Città ;
+                       moto:haNazione moto:Italia ;
+                       moto:haNome "Scarperia e San Piero" .
+
+
+###  http://www.example.com/Motology#Sepang
+moto:Sepang rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Silverstone
+moto:Silverstone rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Spagna
+moto:Spagna rdf:type owl:NamedIndividual ,
+                     moto:Nazione ;
+            moto:haNome "Spagna" .
+
+
+###  http://www.example.com/Motology#Stuart1
+moto:Stuart1 rdf:type owl:NamedIndividual ,
+                      moto:Stuart ;
+             moto:lavoraPer moto:CircuitoMisano ;
+             moto:haNomePersona "Piero Sanchi" .
+
+
+###  http://www.example.com/Motology#Stuart2
+moto:Stuart2 rdf:type owl:NamedIndividual ,
+                      moto:Stuart ;
+             moto:lavoraPer moto:CircuitoMisano ;
+             moto:haNomePersona "Andrea Serafini" .
+
+
+###  http://www.example.com/Motology#Tech3
+moto:Tech3 rdf:type owl:NamedIndividual ,
+                    moto:Team ;
+           moto:teamSponsorizzatoDa moto:GASGAS ;
+           moto:haNome "GASGAS Factory Racing Tech3" .
+
+
+###  http://www.example.com/Motology#Terni
+moto:Terni rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Torino
+moto:Torino rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Townsville
+moto:Townsville rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Urbino
+moto:Urbino rdf:type owl:NamedIndividual ,
+                     moto:Città ;
+            moto:haNazione moto:Italia ;
+            moto:haNome "Urbino" .
+
+
+###  http://www.example.com/Motology#VR46
+moto:VR46 rdf:type owl:NamedIndividual ,
+                   moto:Team ;
+          moto:haCostruttoreDelTeam moto:Ducati ;
+          moto:teamDi moto:Bezzecchi ,
+                      moto:Marini ;
+          moto:teamSponsorizzatoDa moto:Mooney ;
+          moto:haNome "Mooney VR46 Racing" .
+
+
+###  http://www.example.com/Motology#Valencia
+moto:Valencia rdf:type owl:NamedIndividual .
+
+
+###  http://www.example.com/Motology#Viñales
+moto:Viñales rdf:type owl:NamedIndividual ,
+                      moto:Pilota ;
+             moto:natoInCittà moto:Figueres ;
+             moto:pilotaDelTeam moto:Yamaha ;
+             moto:haNomePersona "Maverick Viñales" ;
+             moto:haNumero 12 .
+
+
+###  http://www.example.com/Motology#Yamaha
+moto:Yamaha rdf:type owl:NamedIndividual ,
+                     moto:Team ;
+            moto:teamSponsorizzatoDa moto:Monster ;
+            moto:haNome "Monster Energy Yamaha MotoGP" .
+
+
+###  http://www.example.com/Motology#Zarco
+moto:Zarco rdf:type owl:NamedIndividual ,
+                    moto:Pilota ;
+           moto:natoInCittà moto:Cannes ;
+           moto:pilotaDelTeam moto:Gresini ;
+           moto:haNomePersona "Johann Zarco" ;
+           moto:haNumero 5 .
+
+
+###  http://www.example.com/Motology#1_Bas
+<http://www.example.com/Motology#1_Bas> rdf:type owl:NamedIndividual ,
+                                                 moto:MigliorTempo ;
+                                        moto:tempoDi moto:Bastianini ;
+                                        moto:tempoInFP moto:FP1_1 ;
+                                        moto:haTempo "1:35:67.665" .
+
+
+###  http://www.example.com/Motology#1_Bez
+<http://www.example.com/Motology#1_Bez> rdf:type owl:NamedIndividual ,
+                                                 moto:MigliorTempo ;
+                                        moto:tempoDi moto:Bezzecchi ;
+                                        moto:tempoInFP moto:FP1_1 ;
+                                        moto:haTempo "1:45:26.259" .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( moto:PosizionamentoCampionato
+                moto:PosizionamentoGara
+                moto:PosizionamentoQualifiche
+              )
+] .
+
+
+#################################################################
+#    Rules
+#################################################################
+
+moto:p rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+moto:piazz1 rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+moto:ch1 rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+moto:piazz2 rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+moto:ch2 rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+moto:piazz3 rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+moto:ch3 rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+moto:t rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+moto:m rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+moto:n rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+moto:c rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+moto:piaz rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+moto:pil rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+moto:gp rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+moto:a rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "Team_Pilota_Capotecnico" ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:pilotaDelTeam ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> moto:p ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> moto:t
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:haCapotecnico ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> moto:p ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> moto:c
+                                                                ] ;
+                                                      rdf:rest rdf:nil
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:dipendenteDelTeam ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> moto:c ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> moto:t
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "Costruttore_Team_moto" ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:haCostruttoreDelTeam ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> moto:t ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> moto:c
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:haInScuderia ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> moto:t ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> moto:m
+                                                                ] ;
+                                                      rdf:rest rdf:nil
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:costruitaDa ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> moto:m ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> moto:c
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "Pilota_Piazzamento_Tempo" ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:piazzamentoDi ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> moto:piaz ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> moto:pil
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:qualificatoConTempo ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> moto:piaz ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> moto:t
+                                                                ] ;
+                                                      rdf:rest rdf:nil
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:tempoDi ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> moto:t ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> moto:pil
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "Anno_GP_Campionato" ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:svoltoInCampionato ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> moto:gp ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> moto:c
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:haAnno ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> moto:c ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> moto:a
+                                                                ] ;
+                                                      rdf:rest rdf:nil
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:haAnno ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> moto:gp ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> moto:a
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "Leggenda" ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> moto:Pilota ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> moto:p
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:haOttenuto ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> moto:p ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> moto:piazz1
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:inClassificaDi ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument1> moto:piazz1 ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument2> moto:ch1
+                                                                           ] ;
+                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#classPredicate> moto:Moto3 ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument1> moto:ch1
+                                                                                      ] ;
+                                                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:haPosizioneFinale ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#argument1> moto:piazz1 ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#argument2> 1
+                                                                                                 ] ;
+                                                                                       rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                  rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                                                              <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:haOttenuto ;
+                                                                                                              <http://www.w3.org/2003/11/swrl#argument1> moto:p ;
+                                                                                                              <http://www.w3.org/2003/11/swrl#argument2> moto:piazz2
+                                                                                                            ] ;
+                                                                                                  rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                             rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                                                                         <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:inClassificaDi ;
+                                                                                                                         <http://www.w3.org/2003/11/swrl#argument1> moto:piazz2 ;
+                                                                                                                         <http://www.w3.org/2003/11/swrl#argument2> moto:ch2
+                                                                                                                       ] ;
+                                                                                                             rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                                        rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                                                                                    <http://www.w3.org/2003/11/swrl#classPredicate> moto:Moto2 ;
+                                                                                                                                    <http://www.w3.org/2003/11/swrl#argument1> moto:ch2
+                                                                                                                                  ] ;
+                                                                                                                        rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                                                   rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                                                                                               <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:haPosizioneFinale ;
+                                                                                                                                               <http://www.w3.org/2003/11/swrl#argument1> moto:piazz2 ;
+                                                                                                                                               <http://www.w3.org/2003/11/swrl#argument2> 1
+                                                                                                                                             ] ;
+                                                                                                                                   rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                                                              rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                                                                                                          <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:haOttenuto ;
+                                                                                                                                                          <http://www.w3.org/2003/11/swrl#argument1> moto:p ;
+                                                                                                                                                          <http://www.w3.org/2003/11/swrl#argument2> moto:piazz3
+                                                                                                                                                        ] ;
+                                                                                                                                              rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                                                                         rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                                                                                                                     <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:inClassificaDi ;
+                                                                                                                                                                     <http://www.w3.org/2003/11/swrl#argument1> moto:piazz3 ;
+                                                                                                                                                                     <http://www.w3.org/2003/11/swrl#argument2> moto:ch3
+                                                                                                                                                                   ] ;
+                                                                                                                                                         rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                                                                                    rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                                                                                                                                <http://www.w3.org/2003/11/swrl#classPredicate> moto:MotoGP ;
+                                                                                                                                                                                <http://www.w3.org/2003/11/swrl#argument1> moto:ch3
+                                                                                                                                                                              ] ;
+                                                                                                                                                                    rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                                                                                               rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                                                                                                                                           <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:haPosizioneFinale ;
+                                                                                                                                                                                           <http://www.w3.org/2003/11/swrl#argument1> moto:piazz3 ;
+                                                                                                                                                                                           <http://www.w3.org/2003/11/swrl#argument2> 1
+                                                                                                                                                                                         ] ;
+                                                                                                                                                                               rdf:rest rdf:nil
+                                                                                                                                                                             ]
+                                                                                                                                                                  ]
+                                                                                                                                                       ]
+                                                                                                                                            ]
+                                                                                                                                 ]
+                                                                                                                      ]
+                                                                                                           ]
+                                                                                                ]
+                                                                                     ]
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> moto:Leggenda ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> moto:p
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "Team_Pilota_Moto" ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:pilotaDelTeam ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> moto:p ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> moto:t
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:guidaMoto ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> moto:p ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> moto:m
+                                                                ] ;
+                                                      rdf:rest rdf:nil
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:motoDelTeam ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> moto:m ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> moto:t
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "Numero_Pilota_Moto" ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:guidataDa ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> moto:m ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> moto:p
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:haNumero ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> moto:p ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> moto:n
+                                                                ] ;
+                                                      rdf:rest rdf:nil
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> moto:haNumero ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> moto:m ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> moto:n
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+###  Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi
